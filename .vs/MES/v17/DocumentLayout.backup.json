@@ -1,0 +1,351 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\MES\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\neworderwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\neworderwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\orders.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\orders.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\helpers\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:helpers\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\data\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:data\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\neworderwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\neworderwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\orders.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\orders.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\products.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\products.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\data\\mesdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:data\\mesdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\neworderwindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\neworderwindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\materials.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\materials.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\materials.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\materials.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Material.cs",
+              "DocumentMoniker": "D:\\MES\\Models\\Material.cs",
+              "RelativeDocumentMoniker": "Models\\Material.cs",
+              "ToolTip": "D:\\MES\\Models\\Material.cs",
+              "RelativeToolTip": "Models\\Material.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:56:53.603Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\MES\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "Models\\Product.cs",
+              "ToolTip": "D:\\MES\\Models\\Product.cs",
+              "RelativeToolTip": "Models\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:56:59.082Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "D:\\MES\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "D:\\MES\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwBwAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T16:48:13.235Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\MES\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "D:\\MES\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-19T16:48:12.317Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NewOrderWindow.xaml.cs",
+              "DocumentMoniker": "D:\\MES\\Views\\NewOrderWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\NewOrderWindow.xaml.cs",
+              "ToolTip": "D:\\MES\\Views\\NewOrderWindow.xaml.cs",
+              "RelativeToolTip": "Views\\NewOrderWindow.xaml.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAwwA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T18:03:15.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Orders.xaml.cs",
+              "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\Orders.xaml.cs",
+              "ToolTip": "D:\\MES\\Views\\Orders.xaml.cs",
+              "RelativeToolTip": "Views\\Orders.xaml.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAwwFQAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:56:44.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "D:\\MES\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\LoginViewModel.cs",
+              "ToolTip": "D:\\MES\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T15:38:24.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "D:\\MES\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "AssemblyInfo.cs",
+              "ToolTip": "D:\\MES\\AssemblyInfo.cs",
+              "RelativeToolTip": "AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T15:38:43.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Order.cs",
+              "DocumentMoniker": "D:\\MES\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "Models\\Order.cs",
+              "ToolTip": "D:\\MES\\Models\\Order.cs",
+              "RelativeToolTip": "Models\\Order.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:56:55.994Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "NewOrderWindow.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\NewOrderWindow.xaml",
+              "RelativeDocumentMoniker": "Views\\NewOrderWindow.xaml",
+              "ToolTip": "D:\\MES\\Views\\NewOrderWindow.xaml",
+              "RelativeToolTip": "Views\\NewOrderWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-19T18:06:25.905Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Products.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\Products.xaml",
+              "RelativeDocumentMoniker": "Views\\Products.xaml",
+              "ToolTip": "D:\\MES\\Views\\Products.xaml",
+              "RelativeToolTip": "Views\\Products.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-19T19:21:22.452Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MyDbContext.cs",
+              "DocumentMoniker": "D:\\MES\\Data\\MyDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\MyDbContext.cs",
+              "ToolTip": "D:\\MES\\Data\\MyDbContext.cs",
+              "RelativeToolTip": "Data\\MyDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:59:14.944Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "D:\\MES\\Helpers\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "Helpers\\RelayCommand.cs",
+              "ToolTip": "D:\\MES\\Helpers\\RelayCommand.cs",
+              "RelativeToolTip": "Helpers\\RelayCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T16:47:57.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "D:\\MES\\Services\\OrderService.cs",
+              "RelativeDocumentMoniker": "Services\\OrderService.cs",
+              "ToolTip": "D:\\MES\\Services\\OrderService.cs",
+              "RelativeToolTip": "Services\\OrderService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:58:29.003Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Orders.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml",
+              "RelativeDocumentMoniker": "Views\\Orders.xaml",
+              "ToolTip": "D:\\MES\\Views\\Orders.xaml",
+              "RelativeToolTip": "Views\\Orders.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-18T19:21:49.075Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MESDbContext.cs",
+              "DocumentMoniker": "D:\\MES\\Data\\MESDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\MESDbContext.cs",
+              "ToolTip": "D:\\MES\\Data\\MESDbContext.cs",
+              "RelativeToolTip": "Data\\MESDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAACIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T16:47:53.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "NewOrderWindow.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\NewOrderWindow.xaml",
+              "RelativeDocumentMoniker": "Views\\NewOrderWindow.xaml",
+              "ToolTip": "D:\\MES\\Views\\NewOrderWindow.xaml",
+              "RelativeToolTip": "Views\\NewOrderWindow.xaml",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAADwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-19T18:02:48.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Materials.xaml.cs",
+              "DocumentMoniker": "D:\\MES\\Views\\Materials.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\Materials.xaml.cs",
+              "ToolTip": "D:\\MES\\Views\\Materials.xaml.cs",
+              "RelativeToolTip": "Views\\Materials.xaml.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowCsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T16:28:51.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\MES\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "D:\\MES\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T16:48:07.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\MES\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "D:\\MES\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-19T16:48:04.725Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Materials.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\Materials.xaml",
+              "RelativeDocumentMoniker": "Views\\Materials.xaml",
+              "ToolTip": "D:\\MES\\Views\\Materials.xaml",
+              "RelativeToolTip": "Views\\Materials.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-19T16:28:39.569Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

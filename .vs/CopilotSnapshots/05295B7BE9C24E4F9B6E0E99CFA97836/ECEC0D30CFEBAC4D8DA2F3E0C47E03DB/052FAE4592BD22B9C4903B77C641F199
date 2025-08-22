@@ -1,0 +1,157 @@
+﻿```csharp
+using MES.Data;
+using MES.Models;
+using MES.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+
+namespace MES.Views
+{
+    public partial class NewOrderWindow : Window
+    {
+        private readonly MyDbContext _context;
+        private readonly OrderService _orderService;
+        private DispatcherTimer _statusUpdateTimer;
+        private Order _currentOrder;
+
+        public NewOrderWindow(MyDbContext context)
+        {
+            InitializeComponent();
+            _context = context;
+            _orderService = new OrderService(context);
+            LoadProducts();
+            OrderDatePicker.SelectedDate = DateTime.Now;
+        }
+
+        private async void LoadProducts()
+        {
+            var products = await _context.Products.ToListAsync();
+            ProductComboBox.ItemsSource = products;
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ProductComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a product", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!int.TryParse(QuantityTextBox.Text, out int quantity) || quantity <= 0)
+            {
+                MessageBox.Show("Please enter a valid quantity", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                var selectedProduct = (Product)ProductComboBox.SelectedItem;
+                _currentOrder = await _orderService.CreateOrderAsync(selectedProduct.ProductId, quantity);
+                
+                // Start the status update timer
+                StartStatusUpdateTimer();
+                
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating order: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void StartStatusUpdateTimer()
+        {
+            _statusUpdateTimer = new DispatcherTimer();
+            _statusUpdateTimer.Interval = TimeSpan.FromSeconds(10);
+            _statusUpdateTimer.Tick += StatusUpdateTimer_Tick;
+            _statusUpdateTimer.Start();
+        }
+
+        private async void StatusUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            if (_currentOrder == null)
+            {
+                _statusUpdateTimer.Stop();
+                return;
+            }
+
+            // Update order status and process materials
+            await UpdateOrderStatus();
+        }
+
+        private async Task UpdateOrderStatus()
+        {
+            try
+            {
+                var order = await _context.Orders
+                    .Include(o => o.OrderMaterials)
+                    .ThenInclude(om => om.Material)
+                    .FirstOrDefaultAsync(o => o.OrderId == _currentOrder.OrderId);
+
+                if (order == null)
+                {
+                    _statusUpdateTimer.Stop();
+                    return;
+                }
+
+                // Update status based on current status
+                switch (order.Status)
+                {
+                    case OrderStatus.Pending:
+                        order.Status = OrderStatus.Processing;
+                        break;
+                    case OrderStatus.Processing:
+                        order.Status = OrderStatus.Completed;
+                        _statusUpdateTimer.Stop(); // Stop timer when completed
+                        break;
+                }
+
+                if (order.Status == OrderStatus.Processing)
+                {
+                    // When moving to Processing, deduct half of the materials
+                    foreach (var orderMaterial in order.OrderMaterials)
+                    {
+                        int deductAmount = orderMaterial.QtyUsed / 2;
+                        orderMaterial.Material.StockQuantity -= deductAmount;
+                        orderMaterial.ProcessedQuantity = deductAmount;
+                    }
+                }
+                else if (order.Status == OrderStatus.Completed)
+                {
+                    // When completing, deduct remaining materials
+                    foreach (var orderMaterial in order.OrderMaterials)
+                    {
+                        int remainingAmount = orderMaterial.QtyUsed - orderMaterial.ProcessedQuantity;
+                        orderMaterial.Material.StockQuantity -= remainingAmount;
+                        orderMaterial.ProcessedQuantity = orderMaterial.QtyUsed;
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating order status: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _statusUpdateTimer.Stop();
+            }
+        }
+    }
+}
+```

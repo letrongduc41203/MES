@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using MES.Data;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace MES.Views
+{
+    /// <summary>
+    /// Interaction logic for Orders.xaml
+    /// </summary>
+    public partial class Orders : UserControl
+    {
+        private readonly MyDbContext _context;
+
+        public Orders()
+        {
+            InitializeComponent();
+            _context = App.ServiceProvider.GetRequiredService<MyDbContext>();
+            LoadOrders();
+        }
+
+        private void LoadOrders()
+        {
+            // TODO: Load orders from database
+            OrdersDataGrid.ItemsSource = _context.Orders
+                .Include(o => o.Product)
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
+        }
+
+        private void NewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var newOrderWindow = new NewOrderWindow(_context);
+            newOrderWindow.Owner = Window.GetWindow(this);
+            newOrderWindow.ShowDialog();
+            
+            // Reload orders after the window is closed
+            LoadOrders();
+        }
+    }
+}

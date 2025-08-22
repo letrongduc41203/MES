@@ -1,0 +1,228 @@
+﻿<Window x:Class="MES.Views.Login"
+        xmlns:vm="clr-namespace:MES.ViewModels"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MES.Views"
+        mc:Ignorable="d"
+        Title="System Login" 
+        Height="600" 
+        Width="900"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="White">
+
+    <Window.Resources>
+        <!-- Login Button Style -->
+        <Style x:Key="LoginButtonStyle" TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#4CAF50" Offset="0"/>
+                        <GradientStop Color="#45a049" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8"
+                                BorderThickness="0">
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center"/>
+                                <Border x:Name="HighlightBorder" 
+                                       CornerRadius="8" 
+                                       Background="White" 
+                                       Opacity="0"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="HighlightBorder"
+                                                           Storyboard.TargetProperty="Opacity"
+                                                           To="0.1" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="HighlightBorder"
+                                                           Storyboard.TargetProperty="Opacity"
+                                                           To="0" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="HighlightBorder" Property="Opacity" Value="0.2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Input Field Style -->
+        <Style x:Key="InputFieldStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#e0e0e0"/>
+            <Setter Property="Background" Value="#fafafa"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                                <Setter Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Password Field Style -->
+        <Style x:Key="PasswordFieldStyle" TargetType="PasswordBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#e0e0e0"/>
+            <Setter Property="Background" Value="#fafafa"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                                <Setter Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:LoginViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Side - Branding -->
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1565C0" Offset="0"/>
+                    <GradientStop Color="#0D47A1" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+
+                <!-- Welcome Text -->
+                <TextBlock Text="Welcome to" 
+                          FontSize="24" 
+                          Foreground="White" 
+                          HorizontalAlignment="Center"
+                          FontWeight="Light"
+                          Margin="0,0,0,10"/>
+
+                <TextBlock Text="MES SYSTEM" 
+                          FontSize="36" 
+                          Foreground="White" 
+                          HorizontalAlignment="Center"
+                          FontWeight="Bold"
+                          Margin="0,0,0,20"/>
+
+                <TextBlock Text="Manufacturing Execution System" 
+                          FontSize="16" 
+                          Foreground="White" 
+                          HorizontalAlignment="Center"
+                          FontWeight="Light"
+                          Opacity="0.8"/>
+
+
+            </StackPanel>
+        </Grid>
+
+        <!-- Right Side - Login Form -->
+        <Grid Grid.Column="1">
+            <StackPanel VerticalAlignment="Center" Margin="60,0">
+
+                <!-- Login Header -->
+                <TextBlock Text="USERNAME" 
+                          FontSize="12" 
+                          FontWeight="SemiBold" 
+                          Margin="0,0,0,8"/>
+
+                <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
+                        Style="{StaticResource InputFieldStyle}"
+                        Height="50"
+                        Margin="0,0,0,25"/>
+
+                <!-- Password Field -->
+                <TextBlock Text="PASSWORD" 
+                          FontSize="12" 
+                          FontWeight="SemiBold" 
+                          Margin="0,0,0,8"/>
+
+                <PasswordBox x:Name="PasswordBox"
+                            Style="{StaticResource PasswordFieldStyle}"
+                            Height="50"
+                            Margin="0,0,0,35"/>
+
+                <!-- Login Button -->
+                <Button Content="LOGIN TO SYSTEM" 
+                       Style="{StaticResource LoginButtonStyle}"
+                       Height="55"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Command="{Binding LoginCommand}"
+                       CommandParameter="{Binding ElementName=PasswordBox}"
+                       Click="Button_Click"
+                       Margin="0,0,0,25"/>
+
+                <!-- Divider -->
+                <Separator Margin="0,20,0,20" Background="#e0e0e0"/>
+
+
+
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

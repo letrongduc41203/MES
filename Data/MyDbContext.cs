@@ -1,0 +1,26 @@
+﻿using MES.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace MES.Data
+{
+    public class MyDbContext : DbContext
+    {
+        public MyDbContext(DbContextOptions<MyDbContext> options)
+            : base(options) { }
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderMaterial> OrderMaterials { get; set; }
+        public DbSet<ProductMaterial> ProductMaterials { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<OrderMaterial>()
+                .HasKey(om => new { om.OrderId, om.MaterialId });
+            modelBuilder.Entity<ProductMaterial>()
+                .HasKey(pm => new { pm.ProductId, pm.MaterialId });
+          
+        }
+    }
+}

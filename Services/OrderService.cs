@@ -1,0 +1,120 @@
+﻿using MES.Data;
+using MES.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+namespace MES.Services
+{
+    public class OrderService
+    {
+        private readonly MyDbContext _context;
+
+        public OrderService(MyDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<Order> CreateOrderAsync(int productId, int quantity)
+        {
+            // 1. Tạo đơn hàng
+            var order = new Order
+            {
+                ProductId = productId,
+                Quantity = quantity,
+                OrderDate = DateTime.Now
+            };
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            // 2. Lấy BOM (ProductMaterials)
+            var materials = await _context.ProductMaterials
+                .Where(pm => pm.ProductId == productId)
+                .Include(pm => pm.Material)
+                .ToListAsync();
+
+            foreach (var pm in materials)
+            {
+                int qtyUsed = pm.QtyNeeded * quantity;
+
+                // 3. Thêm vào OrderMaterials
+                var orderMat = new OrderMaterial
+                {
+                    OrderId = order.OrderId,
+                    MaterialId = pm.MaterialId,
+                    QtyUsed = qtyUsed
+                };
+                _context.OrderMaterials.Add(orderMat);
+
+                // 4. Trừ kho
+                pm.Material.StockQuantity -= qtyUsed;
+                pm.Material.LastUpdated = DateTime.Now;
+            }
+
+            await _context.SaveChangesAsync();
+            return order;
+        }
+
+        public async Task CompleteOrderAsync(int orderId)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            if (order == null)
+            {
+                throw new InvalidOperationException($"Order {orderId} không tồn tại");
+            }
+
+            if (order.Status != OrderStatus.Completed)
+            {
+                order.Status = OrderStatus.Completed;
+            }
+
+            // Đảm bảo có OrderMaterials; nếu chưa có thì tạo từ BOM
+            var orderMaterials = await _context.OrderMaterials
+                .Where(om => om.OrderId == orderId)
+                .ToListAsync();
+
+            if (orderMaterials.Count == 0)
+            {
+                var bomItems = await _context.ProductMaterials
+                    .Where(pm => pm.ProductId == order.ProductId)
+                    .ToListAsync();
+
+                foreach (var pm in bomItems)
+                {
+                    _context.OrderMaterials.Add(new OrderMaterial
+                    {
+                        OrderId = orderId,
+                        MaterialId = pm.MaterialId,
+                        QtyUsed = pm.QtyNeeded * order.Quantity,
+                        ProcessedQuantity = 0
+                    });
+                }
+                await _context.SaveChangesAsync();
+
+                orderMaterials = await _context.OrderMaterials
+                    .Where(om => om.OrderId == orderId)
+                    .ToListAsync();
+            }
+
+            // Trừ phần còn lại (idempotent)
+            foreach (var om in orderMaterials)
+            {
+                int remaining = om.QtyUsed - om.ProcessedQuantity;
+                if (remaining <= 0) continue;
+
+                var material = await _context.Materials.FirstOrDefaultAsync(m => m.MaterialId == om.MaterialId);
+                if (material != null)
+                {
+                    material.StockQuantity -= remaining;
+                    material.LastUpdated = DateTime.Now;
+                }
+                om.ProcessedQuantity += remaining;
+            }
+
+            await _context.SaveChangesAsync();
+        }
+    }
+}

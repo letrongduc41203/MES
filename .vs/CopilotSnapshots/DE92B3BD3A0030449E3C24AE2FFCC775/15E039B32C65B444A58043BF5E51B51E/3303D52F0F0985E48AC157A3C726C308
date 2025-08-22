@@ -1,0 +1,64 @@
+﻿using MES.Services;
+using MES.Helpers;
+using MES.Views;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+
+namespace MES.ViewModels
+{
+    public class LoginViewModel : INotifyPropertyChanged
+    {
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set { _username = value; OnPropertyChanged(); }
+        }
+
+        public ICommand LoginCommand { get; }
+
+        private readonly AuthService _authService;
+
+        public LoginViewModel()
+        {
+            _authService = new AuthService();
+            LoginCommand = new RelayCommand(Login);
+        }
+
+        private void Login(object parameter)
+        {
+            if (parameter is PasswordBox passwordBox)
+            {
+                string password = passwordBox.Password;
+
+                var user = _authService.Login(Username, password);
+
+                if (user != null)
+                {
+                    // Lưu thông tin người dùng vào App.Current để dùng toàn cục nếu cần
+                    Application.Current.Properties["CurrentUser"] = user;
+
+                    // Mở MainWindow
+                    MainWindow mainWindow = new MainWindow();
+                    Application.Current.MainWindow.Close();
+                    Application.Current.MainWindow = mainWindow;
+                    mainWindow.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi đăng nhập",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
+}

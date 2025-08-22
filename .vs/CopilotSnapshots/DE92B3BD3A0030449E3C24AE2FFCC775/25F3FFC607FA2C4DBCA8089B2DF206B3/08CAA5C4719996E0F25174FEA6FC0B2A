@@ -1,0 +1,69 @@
+﻿using MES.Services;
+using MES.Helpers;
+using MES.Views;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+
+namespace MES.ViewModels
+{
+    public class LoginViewModel : INotifyPropertyChanged
+    {
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set { _username = value; OnPropertyChanged(); }
+        }
+
+        public ICommand LoginCommand { get; }
+
+        private readonly AuthService _authService;
+
+        public LoginViewModel()
+        {
+            _authService = new AuthService();
+            LoginCommand = new RelayCommand(Login);
+        }
+
+        private void Login(object parameter)
+        {
+            if (parameter is PasswordBox passwordBox)
+            {
+                string password = passwordBox.Password;
+
+                var user = _authService.Login(Username, password);
+
+                if (user != null)
+                {
+                    // Save user information globally if needed
+                    Application.Current.Properties["CurrentUser"] = user;
+
+                    // Create and initialize new MainWindow
+                    var mainWindow = new MainWindow();
+                    mainWindow.WindowState = WindowState.Maximized;
+                    mainWindow.Show();
+
+                    // Find and close the login window
+                    if (Application.Current.Windows[0] is Window loginWindow)
+                    {
+                        loginWindow.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi đăng nhập",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
+}
