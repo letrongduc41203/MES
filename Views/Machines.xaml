@@ -1,0 +1,190 @@
+<UserControl x:Class="MES.Views.Machines"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MES.Helpers"
+             Height="700" Width="1200">
+    
+    <UserControl.Resources>
+        <!-- Converters -->
+        <local:StatusToColorConverter x:Key="StatusToColorConverter"/>
+        <local:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+        
+        <!-- Status Color Converter -->
+        <Style x:Key="StatusIndicatorStyle" TargetType="Ellipse">
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Height" Value="12"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+        
+        <!-- Status Colors -->
+        <SolidColorBrush x:Key="IdleColor" Color="#CCCCCC"/>
+        <SolidColorBrush x:Key="RunningColor" Color="#4CAF50"/>
+        <SolidColorBrush x:Key="MaintenanceColor" Color="#FF9800"/>
+        <SolidColorBrush x:Key="ErrorColor" Color="#F44336"/>
+        
+        <!-- Button Styles -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="MinWidth" Value="80"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" Background="#F5F5F5">
+            <TextBlock Text="Quản lý Máy móc" FontSize="24" FontWeight="Bold" Margin="10"/>
+            <TextBlock Text="Hệ thống MES" FontSize="16" VerticalAlignment="Center" Foreground="Gray" Margin="20,0"/>
+        </StackPanel>
+        
+        <!-- Toolbar -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+            <Button Content="➕ Thêm máy" Command="{Binding AddMachineCommand}" Style="{StaticResource ActionButtonStyle}" Background="#4CAF50" Foreground="White"/>
+            <Button Content="✏️ Sửa" Command="{Binding EditMachineCommand}" Style="{StaticResource ActionButtonStyle}" Background="#2196F3" Foreground="White"/>
+            <Button Content="🗑️ Xóa" Command="{Binding DeleteMachineCommand}" Style="{StaticResource ActionButtonStyle}" Background="#F44336" Foreground="White"/>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
+            <Button Content="🔄 Cập nhật trạng thái" Command="{Binding UpdateStatusCommand}" Style="{StaticResource ActionButtonStyle}" Background="#FF9800" Foreground="White"/>
+            <Button Content="🔧 Bảo trì" Command="{Binding AddMaintenanceCommand}" Style="{StaticResource ActionButtonStyle}" Background="#9C27B0" Foreground="White"/>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
+            <Button Content="🔄 Làm mới" Command="{Binding RefreshCommand}" Style="{StaticResource ActionButtonStyle}" Background="#00BCD4" Foreground="White"/>
+        </StackPanel>
+        
+        <!-- Search and Filter -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,0,10,10">
+            <TextBlock Text="Tìm kiếm:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBox Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,20,0" 
+                     ToolTip="Nhập tên máy hoặc loại máy để tìm kiếm"/>
+            
+            <TextBlock Text="Lọc theo trạng thái:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox SelectedItem="{Binding SelectedStatus}" Width="150" Margin="0,0,20,0">
+                <ComboBoxItem Content="Tất cả"/>
+                <ComboBoxItem Content="Idle"/>
+                <ComboBoxItem Content="Running"/>
+                <ComboBoxItem Content="Maintenance"/>
+                <ComboBoxItem Content="Error"/>
+            </ComboBox>
+        </StackPanel>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Machines DataGrid -->
+            <DataGrid Grid.Column="0" 
+                      ItemsSource="{Binding Machines}" 
+                      SelectedItem="{Binding SelectedMachine}"
+                      AutoGenerateColumns="False" 
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="All"
+                      HeadersVisibility="All"
+                      AlternatingRowBackground="#F9F9F9"
+                      Margin="10">
+                
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Trạng thái" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Style="{StaticResource StatusIndicatorStyle}"
+                                         Fill="{Binding Status, Converter={StaticResource StatusToColorConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTextColumn Header="ID" Binding="{Binding MachineId}" Width="60"/>
+                    <DataGridTextColumn Header="Tên máy" Binding="{Binding MachineName}" Width="200"/>
+                    <DataGridTextColumn Header="Loại máy" Binding="{Binding MachineType}" Width="150"/>
+                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="100"/>
+                    <DataGridTextColumn Header="Lần bảo trì cuối" Binding="{Binding LastMaintenanceDate, StringFormat=dd/MM/yyyy}" Width="120"/>
+                    <DataGridTextColumn Header="Ngày tạo" Binding="{Binding CreatedDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <!-- Machine Details Panel -->
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="Chi tiết máy" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
+                    
+                    <!-- Machine Info -->
+                    <GroupBox Header="Thông tin máy" Margin="0,0,0,20">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="{Binding SelectedMachine.MachineName, StringFormat='Tên: {0}'}" Margin="0,5"/>
+                            <TextBlock Text="{Binding SelectedMachine.MachineType, StringFormat='Loại: {0}'}" Margin="0,5"/>
+                            <TextBlock Text="{Binding SelectedMachine.Status, StringFormat='Trạng thái: {0}'}" Margin="0,5"/>
+                            <TextBlock Text="{Binding SelectedMachine.LastMaintenanceDate, StringFormat='Bảo trì cuối: {0:dd/MM/yyyy}'}" Margin="0,5"/>
+                        </StackPanel>
+                    </GroupBox>
+                    
+                    <!-- Current Order -->
+                    <GroupBox Header="Đơn hàng hiện tại" Margin="0,0,0,20">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Không có đơn hàng nào đang chạy" 
+                                       Foreground="Gray" 
+                                       TextWrapping="Wrap"
+                                       Visibility="{Binding SelectedMachine.OrderMachines.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                            
+                            <ItemsControl ItemsSource="{Binding SelectedMachine.OrderMachines}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Order.OrderId, StringFormat='Đơn hàng: #{0}'}" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding StartTime, StringFormat='Bắt đầu: {0:dd/MM/yyyy HH:mm}'}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </GroupBox>
+                    
+                    <!-- Maintenance History -->
+                    <GroupBox Header="Lịch sử bảo trì" Margin="0,0,0,20">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Không có lịch sử bảo trì" 
+                                       Foreground="Gray" 
+                                       TextWrapping="Wrap"
+                                       Visibility="{Binding SelectedMachine.MaintenanceHistory.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                            
+                            <ItemsControl ItemsSource="{Binding SelectedMachine.MaintenanceHistory}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding MaintenanceDate, StringFormat='Ngày: {0:dd/MM/yyyy}'}" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding MaintenanceType, StringFormat='Loại: {0}'}" Foreground="Blue"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="3" Background="#F0F0F0">
+            <StatusBarItem>
+                <TextBlock Text="{Binding Machines.Count, StringFormat='Tổng số máy: {0}'}"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock Text="{Binding IsLoading, StringFormat='Đang tải: {0}'}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</UserControl> 

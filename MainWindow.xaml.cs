@@ -62,6 +62,10 @@ namespace MES
                     txtPageDescription.Text = "Manage materials and inventory";
                     MainContentControl.Content = new Materials();
                     break;
+                case "btnMachines":
+                    txtPageDescription.Text = "Manage machines and equipment";
+                    MainContentControl.Content = new Machines();
+                    break;
                 case "btnEmployees":
                     txtPageDescription.Text = "Manage employee information";
                     MainContentControl.Content = new Employees();

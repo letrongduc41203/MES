@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\MES\App.xaml
-102057576408
+11599466297
 
-251918758492
+31-923420803
 235902642368
-MainWindow.xaml;Views\Dashboard.xaml;Views\Employees.xaml;Views\Login.xaml;Views\Materials.xaml;Views\NewOrderWindow.xaml;Views\Orders.xaml;Views\Products.xaml;Views\Reports.xaml;Views\Settings.xaml;
+MainWindow.xaml;Views\Dashboard.xaml;Views\Employees.xaml;Views\Login.xaml;Views\Machines.xaml;Views\Materials.xaml;Views\NewOrderWindow.xaml;Views\Orders.xaml;Views\Products.xaml;Views\Reports.xaml;Views\Settings.xaml;
 
-False
+True
 

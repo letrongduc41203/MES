@@ -161,6 +161,13 @@
                             Reports (Báo cáo)
                         </Button>
                         
+                        <Button x:Name="btnSettings" 
+                               Style="{StaticResource MenuButtonStyle}" 
+                               Tag="&#xE713;"
+                               Click="MenuButton_Click">
+                            Settings (Cài đặt)
+                        </Button>
+                        
                         
                     </StackPanel>
                 </ScrollViewer>

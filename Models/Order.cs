@@ -1,4 +1,7 @@
-﻿
+
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MES.Models
 {
@@ -11,14 +14,18 @@ namespace MES.Models
 
     public class Order
     {
+        [Key]
         public int OrderId { get; set; }
         public int ProductId { get; set; }
+        public int? MachineId { get; set; }
         public int Quantity { get; set; }
         public DateTime OrderDate { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         public Product Product { get; set; }
+        public Machine? Machine { get; set; }
         public ICollection<OrderMaterial> OrderMaterials { get; set; }
+        public ICollection<OrderMachine> OrderMachines { get; set; } = new List<OrderMachine>();
     }
 
     public class OrderMaterial
@@ -39,5 +46,6 @@ namespace MES.Models
         public string ProductName { get; set; }
         public string Status { get; set; }
         public int Quantity { get; set; }
+        public string MachineName { get; set; } = string.Empty;
     }
 }

@@ -168,7 +168,7 @@
                        Style="{StaticResource ActionButtonStyle}"
                        Background="#27ae60" 
                        Foreground="White"
-                        Click="NewOrder_Click"/>
+                       Click="NewOrder_Click"/>
             </StackPanel>
 
         </Grid>
@@ -208,6 +208,11 @@
                     <DataGridTextColumn Header="Quantity" 
                                        Binding="{Binding Quantity}" 
                                        Width="100"
+                                       HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+
+                    <DataGridTextColumn Header="Machine" 
+                                       Binding="{Binding MachineName}" 
+                                       Width="300"
                                        HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
 
                     <!-- Status -->

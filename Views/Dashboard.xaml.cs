@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using MES.Data;
+using MES.Services;
+using MES.ViewModels;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MES.Views
 {
@@ -23,6 +13,13 @@ namespace MES.Views
         public Dashboard()
         {
             InitializeComponent();
+            
+            // Initialize services and view model
+            var context = new MESDbContext();
+            var machineService = new MachineService(context);
+            var viewModel = new DashboardViewModel(machineService, context);
+            
+            DataContext = viewModel;
         }
     }
 }

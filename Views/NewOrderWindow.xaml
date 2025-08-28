@@ -24,6 +24,12 @@
                              DisplayMemberPath="ProductName"
                              SelectedValuePath="ProductId"
                              Margin="0,5,0,10"/>
+
+                    <Label Content="Select Machine:"/>
+                    <ComboBox x:Name="MachineComboBox" 
+                             DisplayMemberPath="MachineName"
+                             SelectedValuePath="MachineId"
+                             Margin="0,5,0,10"/>
                     
                     <Label Content="Quantity:"/>
                     <TextBox x:Name="QuantityTextBox" 

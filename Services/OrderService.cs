@@ -1,4 +1,4 @@
-﻿using MES.Data;
+using MES.Data;
 using MES.Models;
 using System;
 using System.Collections.Generic;
@@ -18,48 +18,76 @@ namespace MES.Services
             _context = context;
         }
 
-        public async Task<Order> CreateOrderAsync(int productId, int quantity)
+        public async Task<Order> CreateOrderAsync(int productId, int quantity, int machineId, DateTime orderDate)
         {
-            // 1. Tạo đơn hàng
             var order = new Order
             {
                 ProductId = productId,
                 Quantity = quantity,
-                OrderDate = DateTime.Now
+                MachineId = machineId,
+                OrderDate = orderDate,
+                Status = OrderStatus.Pending
             };
+
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            // 2. Lấy BOM (ProductMaterials)
-            var materials = await _context.ProductMaterials
+            var bomItems = await _context.ProductMaterials
                 .Where(pm => pm.ProductId == productId)
-                .Include(pm => pm.Material)
                 .ToListAsync();
 
-            foreach (var pm in materials)
+            foreach (var pm in bomItems)
             {
-                int qtyUsed = pm.QtyNeeded * quantity;
-
-                // 3. Thêm vào OrderMaterials
-                var orderMat = new OrderMaterial
+                var orderMaterial = new OrderMaterial
                 {
                     OrderId = order.OrderId,
                     MaterialId = pm.MaterialId,
-                    QtyUsed = qtyUsed
+                    QtyUsed = pm.QtyNeeded * quantity,
+                    ProcessedQuantity = 0
                 };
-                _context.OrderMaterials.Add(orderMat);
-
-                // 4. Trừ kho
-                pm.Material.StockQuantity -= qtyUsed;
-                pm.Material.LastUpdated = DateTime.Now;
+                _context.OrderMaterials.Add(orderMaterial);
             }
 
             await _context.SaveChangesAsync();
             return order;
         }
 
+        public async Task UpdateOrderStatusAsync(int orderId, OrderStatus newStatus)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Machine)
+                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+            if (order == null) throw new InvalidOperationException($"Order {orderId} not found.");
+            if (order.Status == newStatus) return;
+
+            order.Status = newStatus;
+
+            if (order.Machine != null)
+            {
+                if (newStatus == OrderStatus.Processing)
+                {
+                    order.Machine.Status = MachineStatus.Busy;
+                    order.Machine.CurrentOrderId = order.OrderId;
+                }
+                else if (newStatus == OrderStatus.Completed)
+                {
+                    if (order.Machine.CurrentOrderId == order.OrderId)
+                    {
+                        order.Machine.Status = MachineStatus.Available;
+                        order.Machine.CurrentOrderId = null;
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task CompleteOrderAsync(int orderId)
         {
+            // Update status first, which handles machine status changes
+            await UpdateOrderStatusAsync(orderId, OrderStatus.Completed);
+
             var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
             if (order == null)
             {

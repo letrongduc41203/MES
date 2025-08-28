@@ -85,3 +85,6 @@ D:\MES\bin\Debug\net9.0-windows\Microsoft.Extensions.FileProviders.Abstractions.
 D:\MES\bin\Debug\net9.0-windows\Microsoft.Extensions.FileProviders.Physical.dll
 D:\MES\bin\Debug\net9.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll
 D:\MES\bin\Debug\net9.0-windows\appsettings.json
+D:\MES\obj\Debug\net9.0-windows\MES.sourcelink.json
+D:\MES\obj\Debug\net9.0-windows\Views\Machines.g.cs
+D:\MES\obj\Debug\net9.0-windows\Views\Machines.baml

@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using MES.Data;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,13 +35,15 @@ namespace MES.Views
 
                 var rows = await db.Orders
                     .Include(o => o.Product)
+                    .Include(o => o.Machine)
                     .Select(o => new OrderRow
                     {
                         OrderId = o.OrderId,
                         ProductId = o.ProductId,
                         ProductName = o.Product.ProductName,
                         Quantity = o.Quantity,
-                        Status = o.Status.ToString()
+                        Status = o.Status.ToString(),
+                        MachineName = o.Machine != null ? o.Machine.MachineName : "Chưa gán máy"
                     })
                     .OrderByDescending(r => r.OrderId)
                     .ToListAsync();

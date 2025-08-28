@@ -45,8 +45,13 @@ namespace MES.Views
                 var products = await dbContext.Products
                     .OrderBy(p => p.ProductName)
                     .ToListAsync();
-
                 ProductComboBox.ItemsSource = products;
+
+                var machines = await dbContext.Machines
+                    .OrderBy(m => m.MachineName)
+                    .ToListAsync();
+                MachineComboBox.ItemsSource = machines;
+
                 OrderDatePicker.SelectedDate = DateTime.Now;
             }
             catch (Exception ex)
@@ -74,6 +79,12 @@ namespace MES.Views
                     MessageBox.Show("Vui lòng chọn sản phẩm.", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+                
+                if  (MachineComboBox.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn máy.", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
                 if (!int.TryParse(QuantityTextBox.Text, out int quantity) || quantity <= 0)
                 {
@@ -83,59 +94,15 @@ namespace MES.Views
 
                 var selectedDate = OrderDatePicker.SelectedDate ?? DateTime.Now;
                 int productId = (int)ProductComboBox.SelectedValue;
+                int machineId = (int)MachineComboBox.SelectedValue;
 
                 int newOrderId;
 
                 using (var scope = _serviceProvider.CreateScope())
                 {
-                    var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
-
-                    var order = new Order
-                    {
-                        ProductId = productId,
-                        Quantity = quantity,
-                        OrderDate = selectedDate,
-                        Status = OrderStatus.Pending
-                    };
-
-                    dbContext.Orders.Add(order);
-                    try
-                    {
-                        await dbContext.SaveChangesAsync();
-                    }
-                    catch (Exception exSaveOrder)
-                    {
-                        MessageBox.Show($"Lỗi khi lưu Orders: {ExtractError(exSaveOrder)}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                    var bomItems = await dbContext.ProductMaterials
-                        .Where(pm => pm.ProductId == productId)
-                        .ToListAsync();
-
-                    foreach (var pm in bomItems)
-                    {
-                        var orderMaterial = new OrderMaterial
-                        {
-                            OrderId = order.OrderId,
-                            MaterialId = pm.MaterialId,
-                            QtyUsed = pm.QtyNeeded * quantity,
-                            ProcessedQuantity = 0
-                        };
-                        dbContext.OrderMaterials.Add(orderMaterial);
-                    }
-
-                    try
-                    {
-                        await dbContext.SaveChangesAsync();
-                    }
-                    catch (Exception exSaveOM)
-                    {
-                        MessageBox.Show($"Lỗi khi lưu OrderMaterials: {ExtractError(exSaveOM)}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                    newOrderId = order.OrderId;
+                    var orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
+                    var newOrder = await orderService.CreateOrderAsync(productId, quantity, machineId, selectedDate);
+                    newOrderId = newOrder.OrderId;
                 }
 
                 // Debug: Hiển thị thông tin
@@ -167,21 +134,9 @@ namespace MES.Views
                 try
                 {
                     using var scope = _serviceProvider.CreateScope();
-                    var db = scope.ServiceProvider.GetRequiredService<MyDbContext>();
-                    
-                    var order = await db.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
-                    Console.WriteLine($"Found order {orderId}: Status = {order?.Status}");
-                    
-                    if (order != null && order.Status == OrderStatus.Pending)
-                    {
-                        order.Status = OrderStatus.Processing;
-                        await db.SaveChangesAsync();
-                        Console.WriteLine($"Order {orderId} status updated to Processing successfully");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Order {orderId} not found or status not Pending. Current status: {order?.Status}");
-                    }
+                    var orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
+                    await orderService.UpdateOrderStatusAsync(orderId, OrderStatus.Processing);
+                    Console.WriteLine($"Order {orderId} status updated to Processing successfully");
                 }
                 catch (Exception ex)
                 {
