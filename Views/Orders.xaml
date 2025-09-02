@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MES.Views.Orders"
+<UserControl x:Class="MES.Views.Orders"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -131,8 +131,8 @@
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1229*"/>
-            <ColumnDefinition Width="131*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -142,7 +142,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header Section -->
-        <Grid Grid.Row="0" Margin="0,0,0,20" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -156,7 +156,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                
+
                 <Button Content="🔄 Refresh" 
                        Style="{StaticResource ActionButtonStyle}"
                        Background="#3498db" 
@@ -164,11 +164,18 @@
                        Margin="0,0,10,0"
                        Click="Refresh_Click"/>
 
-                <Button Content="➕ New Order" 
+                <Button Content=" New Order" 
                        Style="{StaticResource ActionButtonStyle}"
                        Background="#27ae60" 
                        Foreground="White"
                        Click="NewOrder_Click"/>
+
+                <Button Content=" Assign Employees"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Background="#8e44ad"
+                        Foreground="White"
+                        Margin="10,0,0,0"
+                        Click="AssignEmployees_Click"/>
             </StackPanel>
 
         </Grid>
@@ -180,20 +187,21 @@
                 Background="White" 
                 CornerRadius="8" 
                 BorderBrush="#e0e0e0" 
-                BorderThickness="1" Grid.ColumnSpan="2">
+                BorderThickness="1">
             <DataGrid x:Name="OrdersDataGrid" 
-                     Style="{StaticResource ModernDataGridStyle}">
+                     Style="{StaticResource ModernDataGridStyle}"
+                     IsReadOnly="True">
                 <DataGrid.Columns>
                     <!-- Order ID -->
                     <DataGridTextColumn Header="Order ID" 
                                        Binding="{Binding OrderId}" 
-                                       Width="150"
+                                       Width="100"
                                        HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
 
                     <!-- Product ID -->
                     <DataGridTextColumn Header="Product ID" 
                     Binding="{Binding ProductId}" 
-                    Width="150"
+                    Width="100"
                     HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
 
                     <!-- Product -->
@@ -201,8 +209,6 @@
                                        Binding="{Binding ProductName}" 
                                        Width="300"
                                        HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-
-
 
                     <!-- Quantity -->
                     <DataGridTextColumn Header="Quantity" 
@@ -213,6 +219,12 @@
                     <DataGridTextColumn Header="Machine" 
                                        Binding="{Binding MachineName}" 
                                        Width="300"
+                                       HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+
+                    <!-- Assigned Employees -->
+                    <DataGridTextColumn Header="Assign" 
+                                       Binding="{Binding AssignedEmployees}" 
+                                       Width="250"
                                        HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
 
                     <!-- Status -->
@@ -258,7 +270,7 @@
         </Border>
 
         <!-- Footer Section -->
-        <Grid Grid.Row="3" Margin="0,20,0,0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="3" Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>

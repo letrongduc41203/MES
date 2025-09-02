@@ -42,6 +42,7 @@ namespace MES.Views
             {
                 using var scope = _serviceProvider.CreateScope();
                 var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+                var employeeService = scope.ServiceProvider.GetRequiredService<EmployeeService>();
                 var products = await dbContext.Products
                     .OrderBy(p => p.ProductName)
                     .ToListAsync();
@@ -51,6 +52,10 @@ namespace MES.Views
                     .OrderBy(m => m.MachineName)
                     .ToListAsync();
                 MachineComboBox.ItemsSource = machines;
+
+                // Load active employees for assignment
+                var activeEmployees = await employeeService.GetActiveAsync();
+                EmployeesListBox.ItemsSource = activeEmployees;
 
                 OrderDatePicker.SelectedDate = DateTime.Now;
             }
@@ -103,6 +108,18 @@ namespace MES.Views
                     var orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
                     var newOrder = await orderService.CreateOrderAsync(productId, quantity, machineId, selectedDate);
                     newOrderId = newOrder.OrderId;
+
+                    // Assign employees if any selected
+                    var selectedEmployeeIds = EmployeesListBox.SelectedItems
+                        .OfType<Employee>()
+                        .Select(e => e.EmployeeId)
+                        .ToList();
+                    if (selectedEmployeeIds.Any())
+                    {
+                        var empService = scope.ServiceProvider.GetRequiredService<EmployeeService>();
+                        var role = string.IsNullOrWhiteSpace(RoleTextBox.Text) ? "Worker" : RoleTextBox.Text.Trim();
+                        await empService.AssignEmployeesToOrderAsync(newOrderId, selectedEmployeeIds, role);
+                    }
                 }
 
                 // Debug: Hiển thị thông tin
@@ -126,8 +143,8 @@ namespace MES.Views
                 Console.WriteLine($"Timer started for Order {orderId}");
                 
                 // Chờ 10 giây đầu tiên
-                Console.WriteLine($"Waiting 10 seconds for Order {orderId}...");
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                Console.WriteLine($"Waiting 20 seconds for Order {orderId}...");
+                await Task.Delay(TimeSpan.FromSeconds(20));
                 Console.WriteLine($"10 seconds passed for Order {orderId}");
 
                 // Cập nhật status từ Pending -> Processing
@@ -144,8 +161,8 @@ namespace MES.Views
                 }
 
                 // Chờ 10 giây thứ hai
-                Console.WriteLine($"Waiting another 10 seconds for Order {orderId}...");
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                Console.WriteLine($"Waiting another 20 seconds for Order {orderId}...");
+                await Task.Delay(TimeSpan.FromSeconds(20));
                 Console.WriteLine($"20 seconds total passed for Order {orderId}");
 
                 // Cập nhật status từ Processing -> Completed + trừ kho theo BOM

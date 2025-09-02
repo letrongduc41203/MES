@@ -1,0 +1,33 @@
+<Window x:Class="MES.Views.MaintenanceInputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bắt đầu bảo trì" Height="250" Width="400"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Nhập thông tin bảo trì:" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <StackPanel Grid.Row="1">
+            <Label Content="Mô tả:"/>
+            <TextBox x:Name="DescriptionTextBox" AcceptsReturn="True" TextWrapping="Wrap" Height="60"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2">
+            <Label Content="Kỹ thuật viên (nhân viên Active):"/>
+            <ComboBox x:Name="TechnicianComboBox"
+                      DisplayMemberPath="FullName"
+                      SelectedValuePath="EmployeeId"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="OK" Width="75" IsDefault="True" Click="OkButton_Click" Margin="0,0,10,0"/>
+            <Button Content="Hủy" Width="75" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

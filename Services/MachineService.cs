@@ -23,6 +23,7 @@ namespace MES.Services
             return await _context.Machines
                 .Include(m => m.OrderMachines)
                     .ThenInclude(om => om.Order)
+                        .ThenInclude(o => o.Product) // Include Product data
                 .Include(m => m.MaintenanceHistory)
                 .OrderBy(m => m.MachineName)
                 .ToListAsync();
@@ -33,6 +34,7 @@ namespace MES.Services
             return await _context.Machines
                 .Include(m => m.OrderMachines)
                     .ThenInclude(om => om.Order)
+                        .ThenInclude(o => o.Product) // Include Product data
                 .Include(m => m.MaintenanceHistory)
                 .FirstOrDefaultAsync(m => m.MachineId == machineId);
         }
@@ -97,35 +99,48 @@ namespace MES.Services
         }
 
         // Order Assignment
-        public async Task<bool> AssignOrderToMachineAsync(int orderId, int machineId)
+        public async Task<(bool Success, string ErrorMessage)> AssignOrderToMachineAsync(int orderId, int machineId)
         {
             var machine = await _context.Machines.FindAsync(machineId);
-            if (machine == null || machine.Status == MachineStatus.Maintenance)
-                return false;
+            if (machine == null)
+            {
+                return (false, "Máy không tồn tại.");
+            }
+
+            // 1. Check if machine is available
+            if (machine.Status != MachineStatus.Available)
+            {
+                return (false, $"Không thể gán đơn hàng. Máy đang ở trạng thái '{machine.Status}'.");
+            }
+
+            // 2. Check if machine is already running another order
+            if (machine.CurrentOrderId != null)
+            {
+                return (false, $"Không thể gán đơn hàng. Máy đang chạy đơn hàng ID {machine.CurrentOrderId}.");
+            }
 
             var order = await _context.Set<Order>().FindAsync(orderId);
             if (order == null)
-                return false;
+            {
+                return (false, "Đơn hàng không tồn tại.");
+            }
 
-            // Check if machine is available
-            if (machine.Status != MachineStatus.Idle)
-                return false;
-
+            // All checks passed, proceed with assignment
             var orderMachine = new OrderMachine
             {
                 OrderId = orderId,
                 MachineId = machineId,
                 StartTime = DateTime.Now
             };
-
             _context.OrderMachines.Add(orderMachine);
-            
-            // Update machine status to Running
+
+            // Update machine status and current order
             machine.Status = MachineStatus.Running;
+            machine.CurrentOrderId = orderId;
             machine.UpdatedDate = DateTime.Now;
 
             await _context.SaveChangesAsync();
-            return true;
+            return (true, string.Empty);
         }
 
         public async Task<bool> CompleteOrderOnMachineAsync(int orderId, int machineId)
@@ -151,22 +166,47 @@ namespace MES.Services
         }
 
         // Maintenance Management
-        public async Task<MachineMaintenance> AddMaintenanceRecordAsync(MachineMaintenance maintenance)
+        public async Task<bool> StartMaintenanceAsync(int machineId, string description, string technician)
         {
-            maintenance.MaintenanceDate = DateTime.Now;
-            _context.MachineMaintenances.Add(maintenance);
-
-            // Update machine status and last maintenance date
-            var machine = await _context.Machines.FindAsync(maintenance.MachineId);
-            if (machine != null)
+            var machine = await _context.Machines.FindAsync(machineId);
+            if (machine == null || machine.Status == MachineStatus.Running)
             {
-                machine.Status = MachineStatus.Maintenance;
-                machine.LastMaintenanceDate = maintenance.MaintenanceDate;
-                machine.UpdatedDate = DateTime.Now;
+                return false; // Cannot start maintenance if machine is running or not found
             }
 
+            // 1. Update machine status
+            machine.Status = MachineStatus.Maintenance;
+            machine.UpdatedDate = DateTime.Now;
+
+            // 2. Create new maintenance record
+            var maintenanceRecord = new MachineMaintenance
+            {
+                MachineId = machineId,
+                MaintenanceDate = DateTime.Now,
+                Description = description,
+                Technician = technician
+            };
+            _context.MachineMaintenances.Add(maintenanceRecord);
+
             await _context.SaveChangesAsync();
-            return maintenance;
+            return true;
+        }
+
+        public async Task<bool> CompleteMaintenanceAsync(int machineId)
+        {
+            var machine = await _context.Machines.FindAsync(machineId);
+            if (machine == null || machine.Status != MachineStatus.Maintenance)
+            {
+                return false; // Can only complete maintenance if it's in progress
+            }
+
+            // 1. Update machine status back to Available
+            machine.Status = MachineStatus.Available;
+            machine.LastMaintenanceDate = DateTime.Now;
+            machine.UpdatedDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<List<Machine>> GetMachinesNeedingMaintenanceAsync(int daysThreshold = 30)

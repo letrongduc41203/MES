@@ -1,4 +1,4 @@
-﻿using MES.Models;
+using MES.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MES.Data
@@ -15,6 +15,9 @@ namespace MES.Data
         public DbSet<ProductMaterial> ProductMaterials { get; set; }
         public DbSet<OrderMachine> OrderMachines { get; set; }
         public DbSet<Machine> Machines { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<OrderEmployee> OrderEmployees { get; set; }
+        public DbSet<MachineMaintenance> MachineMaintenances { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +29,8 @@ namespace MES.Data
                 .HasKey(pm => new { pm.ProductId, pm.MaterialId });
             modelBuilder.Entity<OrderMachine>()
                 .HasKey(om => new { om.OrderId, om.MachineId });
+            modelBuilder.Entity<OrderEmployee>()
+                .HasKey(oe => new { oe.OrderId, oe.EmployeeId });
 
             // Relationships for OrderMachine
             modelBuilder.Entity<OrderMachine>()
@@ -38,6 +43,21 @@ namespace MES.Data
                 .WithMany(m => m.OrderMachines)
                 .HasForeignKey(om => om.MachineId);
 
+            modelBuilder.Entity<OrderEmployee>()
+                .HasOne(oe => oe.Order)
+                .WithMany(o => o.OrderEmployees)
+                .HasForeignKey(oe => oe.OrderId);
+
+            modelBuilder.Entity<OrderEmployee>()
+                .HasOne(oe => oe.Employee)
+                .WithMany(e => e.OrderEmployees)
+                .HasForeignKey(oe => oe.EmployeeId);
+
+            // MachineMaintenance relationship
+            modelBuilder.Entity<MachineMaintenance>()
+                .HasOne(mm => mm.Machine)
+                .WithMany(m => m.MaintenanceHistory)
+                .HasForeignKey(mm => mm.MachineId);
 
         }
     }

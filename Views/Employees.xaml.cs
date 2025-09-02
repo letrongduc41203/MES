@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Extensions.DependencyInjection;
+using MES.ViewModels;
+using MES.Services;
 
 namespace MES.Views
 {
@@ -23,6 +26,13 @@ namespace MES.Views
         public Employees()
         {
             InitializeComponent();
+            // Resolve ViewModel via DI (use root provider to keep scope alive)
+            var sp = App.ServiceProvider;
+            if (sp != null)
+            {
+                var svc = sp.GetRequiredService<EmployeeService>();
+                this.DataContext = new EmployeesViewModel(svc);
+            }
         }
     }
 }

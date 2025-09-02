@@ -1,4 +1,4 @@
-﻿using MES.Views;
+using MES.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
@@ -36,6 +36,7 @@ namespace MES
 
             // Đăng ký OrderService
             serviceCollection.AddScoped<OrderService>();
+            serviceCollection.AddScoped<EmployeeService>();
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 

@@ -64,10 +64,7 @@ namespace MES.Models
         [StringLength(500)]
         public string Description { get; set; } = string.Empty;
         
-        [StringLength(50)]
-        public string MaintenanceType { get; set; } = string.Empty; // Preventive, Corrective, Emergency
-        
-        public decimal? Cost { get; set; }
+
         
         [StringLength(100)]
         public string Technician { get; set; } = string.Empty;

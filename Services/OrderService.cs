@@ -18,38 +18,78 @@ namespace MES.Services
             _context = context;
         }
 
+        // Create order and assign to machine only if machine is valid and available.
         public async Task<Order> CreateOrderAsync(int productId, int quantity, int machineId, DateTime orderDate)
         {
-            var order = new Order
+            // Use a transaction so partial changes are not persisted if something fails
+            await using var tx = await _context.Database.BeginTransactionAsync();
+            try
             {
-                ProductId = productId,
-                Quantity = quantity,
-                MachineId = machineId,
-                OrderDate = orderDate,
-                Status = OrderStatus.Pending
-            };
+                // Validate machine
+                var machine = await _context.Machines.FindAsync(machineId);
+                if (machine == null)
+                    throw new InvalidOperationException($"Machine {machineId} not found.");
 
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
+                if (machine.Status != MachineStatus.Available)
+                    throw new InvalidOperationException($"Cannot assign order. Machine is in status '{machine.Status}'.");
 
-            var bomItems = await _context.ProductMaterials
-                .Where(pm => pm.ProductId == productId)
-                .ToListAsync();
+                if (machine.CurrentOrderId != null)
+                    throw new InvalidOperationException($"Cannot assign order. Machine is already running order ID {machine.CurrentOrderId}.");
 
-            foreach (var pm in bomItems)
-            {
-                var orderMaterial = new OrderMaterial
+                // 1. Create order
+                var order = new Order
+                {
+                    ProductId = productId,
+                    Quantity = quantity,
+                    MachineId = machineId,
+                    OrderDate = orderDate,
+                    Status = OrderStatus.Pending
+                };
+
+                _context.Orders.Add(order);
+                await _context.SaveChangesAsync(); // get OrderId
+
+                // 2. Create OrderMachine (assignment)
+                var orderMachine = new OrderMachine
                 {
                     OrderId = order.OrderId,
-                    MaterialId = pm.MaterialId,
-                    QtyUsed = pm.QtyNeeded * quantity,
-                    ProcessedQuantity = 0
+                    MachineId = machineId,
+                    StartTime = DateTime.Now
                 };
-                _context.OrderMaterials.Add(orderMaterial);
-            }
+                _context.OrderMachines.Add(orderMachine);
 
-            await _context.SaveChangesAsync();
-            return order;
+                // 3. Update machine state
+                machine.Status = MachineStatus.Running;
+                machine.CurrentOrderId = order.OrderId;
+                machine.UpdatedDate = DateTime.Now;
+
+                // 4. Create OrderMaterials from BOM
+                var bomItems = await _context.ProductMaterials
+                    .Where(pm => pm.ProductId == productId)
+                    .ToListAsync();
+
+                foreach (var pm in bomItems)
+                {
+                    var orderMaterial = new OrderMaterial
+                    {
+                        OrderId = order.OrderId,
+                        MaterialId = pm.MaterialId,
+                        QtyUsed = pm.QtyNeeded * quantity,
+                        ProcessedQuantity = 0
+                    };
+                    _context.OrderMaterials.Add(orderMaterial);
+                }
+
+                await _context.SaveChangesAsync();
+                await tx.CommitAsync();
+
+                return order;
+            }
+            catch
+            {
+                await tx.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task UpdateOrderStatusAsync(int orderId, OrderStatus newStatus)

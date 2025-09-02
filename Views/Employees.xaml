@@ -1,12 +1,65 @@
-﻿<UserControl x:Class="MES.Views.Employees"
+<UserControl x:Class="MES.Views.Employees"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MES.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Quản lý Nhân viên" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Employees list -->
+            <DataGrid Grid.Column="0"
+                      ItemsSource="{Binding Employees}"
+                      SelectedItem="{Binding SelectedEmployee}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding EmployeeId}" Width="80"/>
+                    <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}" Width="*"/>
+                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="120"/>
+                    <DataGridTextColumn Header="Tạo lúc" Binding="{Binding CreatedDate, StringFormat=dd/MM/yyyy HH:mm}" Width="160"/>
+                    <DataGridTextColumn Header="Cập nhật" Binding="{Binding UpdatedDate, StringFormat=dd/MM/yyyy HH:mm}" Width="160"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Editor -->
+            <GroupBox Grid.Column="1" Header="Thêm / Sửa" Padding="10">
+                <StackPanel>
+                    <Label Content="Họ tên:"/>
+                    <TextBox Text="{Binding NewFullName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Content="Trạng thái:" Margin="0,10,0,0"/>
+                    <ComboBox SelectedItem="{Binding NewStatus}" >
+                        <ComboBoxItem Content="Active"/>
+                        <ComboBoxItem Content="Inactive"/>
+                    </ComboBox>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
+                        <Button Content="Thêm" Margin="0,0,10,0" Padding="12,6" Command="{Binding AddCommand}"/>
+                        <Button Content="Cập nhật" Margin="0,0,10,0" Padding="12,6" Command="{Binding UpdateCommand}"/>
+                        <Button Content="Xóa (mềm)" Padding="12,6" Command="{Binding DeleteCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="Làm mới" Command="{Binding RefreshCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

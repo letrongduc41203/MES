@@ -26,6 +26,7 @@ namespace MES.Models
         public Machine? Machine { get; set; }
         public ICollection<OrderMaterial> OrderMaterials { get; set; }
         public ICollection<OrderMachine> OrderMachines { get; set; } = new List<OrderMachine>();
+        public ICollection<OrderEmployee> OrderEmployees { get; set; } = new List<OrderEmployee>();
     }
 
     public class OrderMaterial
@@ -47,5 +48,6 @@ namespace MES.Models
         public string Status { get; set; }
         public int Quantity { get; set; }
         public string MachineName { get; set; } = string.Empty;
+        public string AssignedEmployees { get; set; } = string.Empty;
     }
 }

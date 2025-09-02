@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MES.Models;
 
 namespace MES.Data
@@ -14,6 +14,8 @@ namespace MES.Data
         public DbSet<Material> Materials { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductMaterial> ProductMaterials { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<OrderEmployee> OrderEmployees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -74,6 +76,20 @@ namespace MES.Data
                 .HasOne(o => o.Product)
                 .WithMany(p => p.Orders)
                 .HasForeignKey(o => o.ProductId);
+
+            // Employees and OrderEmployees
+            modelBuilder.Entity<OrderEmployee>()
+                .HasKey(oe => new { oe.OrderId, oe.EmployeeId });
+
+            modelBuilder.Entity<OrderEmployee>()
+                .HasOne(oe => oe.Order)
+                .WithMany(o => o.OrderEmployees)
+                .HasForeignKey(oe => oe.OrderId);
+
+            modelBuilder.Entity<OrderEmployee>()
+                .HasOne(oe => oe.Employee)
+                .WithMany(e => e.OrderEmployees)
+                .HasForeignKey(oe => oe.EmployeeId);
         }
     }
 }
