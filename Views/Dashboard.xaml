@@ -5,17 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MES.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="1200">
 
-    
     <UserControl.Resources>
         <Style x:Key="MetricCardStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="#E0E0E0"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect Color="Gray" Direction="270" ShadowDepth="2" Opacity="0.3"/>
@@ -24,17 +23,32 @@
         </Style>
         
         <Style x:Key="MetricValueStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontSize" Value="28"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Margin" Value="0,8"/>
         </Style>
         
         <Style x:Key="MetricLabelStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="#666"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="PercentageTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#4CAF50"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
         </Style>
     </UserControl.Resources>
     
@@ -44,15 +58,69 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             <!-- Header -->
-            <TextBlock Grid.Row="0" Text="Dashboard - Tổng quan hệ thống MES" 
-                       FontSize="28" FontWeight="Bold" Margin="0,0,0,30"/>
+            <TextBlock Grid.Row="0" Text="Dashboard MES - Tổng quan hệ thống" 
+                       FontSize="32" FontWeight="Bold" Margin="0,0,0,30" 
+                       HorizontalAlignment="Center" Foreground="#2C3E50"/>
             
-            <!-- Machine Status Overview -->
-            <GroupBox Grid.Row="1" Header="Trạng thái Máy móc" Margin="0,0,0,20">
+            <!-- 1. Orders Overview -->
+            <GroupBox Grid.Row="1" Header="📋 Tổng quan Orders" Margin="0,0,0,20">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Time Period Selection -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                        <RadioButton Content="Hôm nay" IsChecked="{Binding IsTodaySelected}" Margin="10,0"/>
+                        <RadioButton Content="Tuần này" IsChecked="{Binding IsWeekSelected}" Margin="10,0"/>
+                        <RadioButton Content="Tháng này" IsChecked="{Binding IsMonthSelected}" Margin="10,0"/>
+                    </StackPanel>
+                    
+                    <!-- Orders Metrics -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Border Grid.Column="0" Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="📊" FontSize="35" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding TotalOrders}" Style="{StaticResource MetricValueStyle}"/>
+                                <TextBlock Text="Tổng số Orders" Style="{StaticResource MetricLabelStyle}"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Grid.Column="1" Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="🔄" FontSize="35" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding InProgressOrders}" Style="{StaticResource MetricValueStyle}" Foreground="#FF9800"/>
+                                <TextBlock Text="Đang thực hiện" Style="{StaticResource MetricLabelStyle}"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Grid.Column="2" Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="✅" FontSize="35" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding CompletedOrders}" Style="{StaticResource MetricValueStyle}" Foreground="#4CAF50"/>
+                                <TextBlock Text="Hoàn thành" Style="{StaticResource MetricLabelStyle}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            
+            <!-- 2. Machines Status -->
+            <GroupBox Grid.Row="2" Header="🏭 Trạng thái Máy móc" Margin="0,0,0,20">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -61,70 +129,178 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <!-- Total Machines -->
                     <Border Grid.Column="0" Style="{StaticResource MetricCardStyle}">
                         <StackPanel>
-                            <TextBlock Text="🏭" FontSize="40" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding TotalMachines}" Style="{StaticResource MetricValueStyle}"/>
-                            <TextBlock Text="Tổng số máy" Style="{StaticResource MetricLabelStyle}"/>
+                            <TextBlock Text="🟢" FontSize="35" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding AvailableMachines}" Style="{StaticResource MetricValueStyle}" Foreground="#4CAF50"/>
+                            <TextBlock Text="Sẵn sàng" Style="{StaticResource MetricLabelStyle}"/>
                         </StackPanel>
                     </Border>
                     
-                    <!-- Idle Machines -->
                     <Border Grid.Column="1" Style="{StaticResource MetricCardStyle}">
                         <StackPanel>
-                            <TextBlock Text="⚪" FontSize="40" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding IdleMachines}" Style="{StaticResource MetricValueStyle}"/>
-                            <TextBlock Text="Máy rảnh" Style="{StaticResource MetricLabelStyle}"/>
+                            <TextBlock Text="⚡" FontSize="35" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding InUseMachines}" Style="{StaticResource MetricValueStyle}" Foreground="#2196F3"/>
+                            <TextBlock Text="Đang sử dụng" Style="{StaticResource MetricLabelStyle}"/>
                         </StackPanel>
                     </Border>
                     
-                    <!-- Running Machines -->
                     <Border Grid.Column="2" Style="{StaticResource MetricCardStyle}">
                         <StackPanel>
-                            <TextBlock Text="🟢" FontSize="40" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding RunningMachines}" Style="{StaticResource MetricValueStyle}"/>
-                            <TextBlock Text="Máy đang chạy" Style="{StaticResource MetricLabelStyle}"/>
+                            <TextBlock Text="🔧" FontSize="35" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding MaintenanceMachines}" Style="{StaticResource MetricValueStyle}" Foreground="#FF9800"/>
+                            <TextBlock Text="Bảo trì" Style="{StaticResource MetricLabelStyle}"/>
                         </StackPanel>
                     </Border>
                     
-                    <!-- Maintenance Machines -->
                     <Border Grid.Column="3" Style="{StaticResource MetricCardStyle}">
                         <StackPanel>
-                            <TextBlock Text="🟡" FontSize="40" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding MaintenanceMachines}" Style="{StaticResource MetricValueStyle}"/>
-                            <TextBlock Text="Máy bảo trì" Style="{StaticResource MetricLabelStyle}"/>
+                            <TextBlock Text="📈" FontSize="35" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding MachineUtilizationRate}" Style="{StaticResource MetricValueStyle}" Foreground="#9C27B0"/>
+                            <TextBlock Text="Tỷ lệ sử dụng" Style="{StaticResource MetricLabelStyle}"/>
+                            <TextBlock Text="{Binding MachineUtilizationPercentage, StringFormat='{}{0:F1}%'}" Style="{StaticResource PercentageTextStyle}"/>
                         </StackPanel>
                     </Border>
                 </Grid>
             </GroupBox>
             
-            <!-- Quick Actions -->
-            <GroupBox Grid.Row="2" Header="Thao tác nhanh" Margin="0,0,0,20">
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <Button Content="➕ Thêm máy mới" Margin="10" Padding="15,8" Background="#4CAF50" Foreground="White"/>
-                    <Button Content="🔧 Bảo trì máy" Margin="10" Padding="15,8" Background="#FF9800" Foreground="White"/>
-                    <Button Content="📊 Báo cáo máy" Margin="10" Padding="15,8" Background="#2196F3" Foreground="White"/>
-                    <Button Content="⚙️ Cài đặt" Margin="10" Padding="15,8" Background="#9C27B0" Foreground="White"/>
-                </StackPanel>
+            <!-- 3. Employees Activity -->
+            <GroupBox Grid.Row="3" Header="👥 Hoạt động Nhân viên" Margin="0,0,0,20">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Employee Metrics -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Border Grid.Row="0" Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="👤" FontSize="30" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding ActiveEmployees}" Style="{StaticResource MetricValueStyle}"/>
+                                <TextBlock Text="Nhân viên hoạt động" Style="{StaticResource MetricLabelStyle}"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Grid.Row="1" Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="⚙️" FontSize="30" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding ProductionEmployees}" Style="{StaticResource MetricValueStyle}" Foreground="#4CAF50"/>
+                                <TextBlock Text="Tham gia sản xuất" Style="{StaticResource MetricLabelStyle}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    
+                    <!-- Top Employees Leaderboard -->
+                    <GroupBox Grid.Column="1" Header="🏆 Top nhân viên" Margin="10,0,0,0">
+                        <DataGrid ItemsSource="{Binding TopEmployees}" 
+                                  AutoGenerateColumns="False" 
+                                  IsReadOnly="True"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="Horizontal"
+                                  MaxHeight="150">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="40"/>
+                                <DataGridTextColumn Header="Tên" Binding="{Binding EmployeeName}" Width="120"/>
+                                <DataGridTextColumn Header="Orders" Binding="{Binding OrderCount}" Width="60"/>
+                                <DataGridTextColumn Header="Điểm" Binding="{Binding Score}" Width="60"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
             </GroupBox>
             
-            <!-- Machine List Preview -->
-            <GroupBox Grid.Row="3" Header="Danh sách máy gần đây">
-                <DataGrid ItemsSource="{Binding RecentMachines}" 
-                          AutoGenerateColumns="False" 
-                          IsReadOnly="True"
-                          HeadersVisibility="Column"
-                          GridLinesVisibility="Horizontal"
-                          Margin="10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding MachineId}" Width="60"/>
-                        <DataGridTextColumn Header="Tên máy" Binding="{Binding MachineName}" Width="200"/>
-                        <DataGridTextColumn Header="Loại" Binding="{Binding MachineType}" Width="150"/>
-                        <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="100"/>
-                        <DataGridTextColumn Header="Lần bảo trì cuối" Binding="{Binding LastMaintenanceDate, StringFormat=dd/MM/yyyy}" Width="120"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <!-- 4. Production Output -->
+            <GroupBox Grid.Row="4" Header="📈 Sản lượng" Margin="0,0,0,20">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Production Metrics -->
+                    <StackPanel Grid.Column="0">
+                        <Border Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="📦" FontSize="35" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding TotalQuantityProduced}" Style="{StaticResource MetricValueStyle}" Foreground="#4CAF50"/>
+                                <TextBlock Text="Sản lượng tổng" Style="{StaticResource MetricLabelStyle}"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="⚡" FontSize="35" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding AverageQuantityPerOrder}" Style="{StaticResource MetricValueStyle}" Foreground="#2196F3"/>
+                                <TextBlock Text="TB mỗi Order" Style="{StaticResource MetricLabelStyle}"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    
+                    <!-- Production Chart Placeholder -->
+                    <GroupBox Grid.Column="1" Header="Biểu đồ sản lượng" Margin="10,0,0,0">
+                        <Border Background="#F5F5F5" CornerRadius="5">
+                            <TextBlock Text="📊 Biểu đồ Orders → Quantity&#10;(Tích hợp Chart Control)" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="14" 
+                                       Foreground="#888"
+                                       TextAlignment="Center"/>
+                        </Border>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+            
+            <!-- 5. Maintenance Summary -->
+            <GroupBox Grid.Row="5" Header="🔧 Tóm tắt Bảo trì" Margin="0,0,0,20">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0" Style="{StaticResource MetricCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="🛠️" FontSize="35" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding MaintenanceCount}" Style="{StaticResource MetricValueStyle}"/>
+                            <TextBlock Text="Số lần bảo trì" Style="{StaticResource MetricLabelStyle}"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <GroupBox Grid.Column="1" Header="Máy bảo trì nhiều nhất" Margin="5,0">
+                        <StackPanel>
+                            <TextBlock Text="{Binding TopMaintenanceMachine}" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding TopMaintenanceMachineCount, StringFormat='{}{0} lần'}" 
+                                       HorizontalAlignment="Center" Foreground="#666"/>
+                        </StackPanel>
+                    </GroupBox>
+                    
+                    <GroupBox Grid.Column="2" Header="KTV hàng đầu" Margin="5,0">
+                        <StackPanel>
+                            <TextBlock Text="{Binding TopTechnician}" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding TopTechnicianCount, StringFormat='{}{0} lần'}" 
+                                       HorizontalAlignment="Center" Foreground="#666"/>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+            
+            <!-- Quick Actions -->
+            <GroupBox Grid.Row="6" Header="⚡ Thao tác nhanh">
+                <WrapPanel Margin="10" Orientation="Horizontal">
+                    <Button Content="➕ Tạo Order mới" Margin="5" Padding="15,8" Background="#4CAF50" Foreground="White"/>
+                    <Button Content="🏭 Quản lý máy móc" Margin="5" Padding="15,8" Background="#2196F3" Foreground="White"/>
+                    <Button Content="👥 Quản lý nhân viên" Margin="5" Padding="15,8" Background="#FF9800" Foreground="White"/>
+                    <Button Content="🔧 Lập lịch bảo trì" Margin="5" Padding="15,8" Background="#9C27B0" Foreground="White"/>
+                    <Button Content="📊 Xem báo cáo chi tiết" Margin="5" Padding="15,8" Background="#607D8B" Foreground="White"/>
+                    <Button Content="⚙️ Cài đặt hệ thống" Margin="5" Padding="15,8" Background="#795548" Foreground="White"/>
+                </WrapPanel>
             </GroupBox>
         </Grid>
     </ScrollViewer>
