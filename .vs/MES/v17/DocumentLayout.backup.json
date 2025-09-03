@@ -11,6 +11,14 @@
       "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\orders.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\orders.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\orders.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\services\\machineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:services\\machineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\viewmodels\\machinesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:viewmodels\\machinesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -25,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\services\\machineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:services\\machineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\models\\machine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -66,11 +70,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Orders.xaml.cs",
+              "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\Orders.xaml.cs",
+              "ToolTip": "D:\\MES\\Views\\Orders.xaml.cs",
+              "RelativeToolTip": "Views\\Orders.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T16:33:36.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "MachinesViewModel.cs",
               "DocumentMoniker": "D:\\MES\\ViewModels\\MachinesViewModel.cs",
               "RelativeDocumentMoniker": "ViewModels\\MachinesViewModel.cs",
@@ -78,12 +95,11 @@
               "RelativeToolTip": "ViewModels\\MachinesViewModel.cs",
               "ViewState": "AgIAADUBAAAAAAAAAAAnwFMBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-01T19:21:50.745Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-01T19:21:50.745Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Order.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Order.cs",
               "RelativeDocumentMoniker": "Models\\Order.cs",
@@ -95,7 +111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\MES\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -107,7 +123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Product.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Product.cs",
               "RelativeDocumentMoniker": "Models\\Product.cs",
@@ -119,7 +135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MyDbContext.cs",
               "DocumentMoniker": "D:\\MES\\Data\\MyDbContext.cs",
               "RelativeDocumentMoniker": "Data\\MyDbContext.cs",
@@ -131,7 +147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "NewOrderWindow.xaml.cs",
               "DocumentMoniker": "D:\\MES\\Views\\NewOrderWindow.xaml.cs",
               "RelativeDocumentMoniker": "Views\\NewOrderWindow.xaml.cs",
@@ -143,7 +159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Machines.xaml",
               "DocumentMoniker": "D:\\MES\\Views\\Machines.xaml",
               "RelativeDocumentMoniker": "Views\\Machines.xaml",
@@ -154,7 +170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "Material.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Material.cs",
               "RelativeDocumentMoniker": "Models\\Material.cs",
@@ -170,15 +186,15 @@
               "Title": "Orders.xaml",
               "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml",
               "RelativeDocumentMoniker": "Views\\Orders.xaml",
-              "ToolTip": "D:\\MES\\Views\\Orders.xaml*",
-              "RelativeToolTip": "Views\\Orders.xaml*",
+              "ToolTip": "D:\\MES\\Views\\Orders.xaml",
+              "RelativeToolTip": "Views\\Orders.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-08-28T18:11:39.906Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "MachineService.cs",
               "DocumentMoniker": "D:\\MES\\Services\\MachineService.cs",
               "RelativeDocumentMoniker": "Services\\MachineService.cs",
@@ -186,11 +202,12 @@
               "RelativeToolTip": "Services\\MachineService.cs",
               "ViewState": "AgIAAGMAAAAAAAAAAAAAAIYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-01T18:06:52.618Z"
+              "WhenOpened": "2025-09-01T18:06:52.618Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "OrderService.cs",
               "DocumentMoniker": "D:\\MES\\Services\\OrderService.cs",
               "RelativeDocumentMoniker": "Services\\OrderService.cs",
@@ -202,7 +219,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Machine.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Machine.cs",
               "RelativeDocumentMoniker": "Models\\Machine.cs",
@@ -214,7 +231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "StatusToColorConverter.cs",
               "DocumentMoniker": "D:\\MES\\Helpers\\StatusToColorConverter.cs",
               "RelativeDocumentMoniker": "Helpers\\StatusToColorConverter.cs",
@@ -232,7 +249,7 @@
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "FloatingWindowState": {
-        "Id": "9a2b738f-7af5-4771-b4f4-154276e4a6d1",
+        "Id": "0b55a686-c3b3-40b2-a839-a4b5828d1ef0",
         "Display": 0,
         "X": 0,
         "Y": 65,
@@ -251,11 +268,11 @@
               "Title": "Orders.xaml",
               "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml",
               "RelativeDocumentMoniker": "Views\\Orders.xaml",
-              "ToolTip": "D:\\MES\\Views\\Orders.xaml*",
-              "RelativeToolTip": "Views\\Orders.xaml*",
-              "ViewState": "AgIAANsAAAAAAAAAAAAAAOIAAAAwAAAAAAAAAA==",
+              "ToolTip": "D:\\MES\\Views\\Orders.xaml",
+              "RelativeToolTip": "Views\\Orders.xaml",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAUwJYAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-02T19:55:17.702Z",
+              "WhenOpened": "2025-09-03T16:34:01.999Z",
               "EditorCaption": ""
             }
           ]

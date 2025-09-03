@@ -40,17 +40,17 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" Background="#F5F5F5">
-            <TextBlock Text="Quản lý Máy móc" FontSize="24" FontWeight="Bold" Margin="10"/>
-            <TextBlock Text="Hệ thống MES" FontSize="16" VerticalAlignment="Center" Foreground="Gray" Margin="20,0"/>
+            <TextBlock Text="Machines Management" FontSize="24" FontWeight="Bold" Margin="10"/>
+            <TextBlock Text="MES System" FontSize="16" VerticalAlignment="Center" Foreground="Gray" Margin="20,0"/>
         </StackPanel>
 
         <!-- Toolbar -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
-            <Button Content="🔄 Hoàn tất bảo trì" Command="{Binding UpdateStatusCommand}" Style="{StaticResource ActionButtonStyle}" Background="#FF9800" Foreground="White"/>
-            <Button Content="🔧 Bảo trì" Command="{Binding AddMaintenanceCommand}" Style="{StaticResource ActionButtonStyle}" Background="#9C27B0" Foreground="White"/>
+            <Button Content="🔄 Complete maintenance" Command="{Binding UpdateStatusCommand}" Style="{StaticResource ActionButtonStyle}" Background="#FF9800" Foreground="White"/>
+            <Button Content="🔧 Maintenance" Command="{Binding AddMaintenanceCommand}" Style="{StaticResource ActionButtonStyle}" Background="#9C27B0" Foreground="White"/>
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
-            <Button Content="🔄 Làm mới" Command="{Binding RefreshCommand}" Style="{StaticResource ActionButtonStyle}" Background="#00BCD4" Foreground="White"/>
+            <Button Content="🔄 Refresh" Command="{Binding RefreshCommand}" Style="{StaticResource ActionButtonStyle}" Background="#00BCD4" Foreground="White"/>
         </StackPanel>
 
        
@@ -76,7 +76,7 @@
                       Margin="10,0,10,20">
 
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Trạng thái" Width="80">
+                    <DataGridTemplateColumn Header="Status" Width="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Ellipse Style="{StaticResource StatusIndicatorStyle}"
@@ -86,35 +86,35 @@
                     </DataGridTemplateColumn>
 
                     <DataGridTextColumn Header="ID" Binding="{Binding MachineId}" Width="60"/>
-                    <DataGridTextColumn Header="Tên máy" Binding="{Binding MachineName}" Width="200"/>
-                    <DataGridTextColumn Header="Loại máy" Binding="{Binding MachineType}" Width="150"/>
-                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="100"/>
-                    <DataGridTextColumn Header="Lần bảo trì cuối" Binding="{Binding LastMaintenanceDate, StringFormat=dd/MM/yyyy}" Width="120"/>
-                    <DataGridTextColumn Header="Ngày tạo" Binding="{Binding CreatedDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                    <DataGridTextColumn Header="Machine Name" Binding="{Binding MachineName}" Width="200"/>
+                    <DataGridTextColumn Header="Machine Type" Binding="{Binding MachineType}" Width="150"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                    <DataGridTextColumn Header="Last Maintenance" Binding="{Binding LastMaintenanceDate, StringFormat=dd/MM/yyyy}" Width="120"/>
+                    <DataGridTextColumn Header="Created Date" Binding="{Binding CreatedDate, StringFormat=dd/MM/yyyy}" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
 
             <!-- Machine Details Panel -->
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="10,10,10,10">
                 <StackPanel>
-                    <TextBlock Text="Chi tiết máy" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
+                    <TextBlock Text="Machine Details" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
 
                     <!-- Machine Info -->
-                    <GroupBox Header="Thông tin máy" Margin="0,0,0,20">
+                    <GroupBox Header="Machine Info" Margin="0,0,0,20">
                         <StackPanel Margin="10">
-                            <TextBlock Text="{Binding SelectedMachine.MachineName, StringFormat='Tên: {0}'}" Margin="0,5"/>
-                            <TextBlock Text="{Binding SelectedMachine.MachineType, StringFormat='Loại: {0}'}" Margin="0,5"/>
-                            <TextBlock Text="{Binding SelectedMachine.Status, StringFormat='Trạng thái: {0}'}" Margin="0,5"/>
-                            <TextBlock Text="{Binding SelectedMachine.LastMaintenanceDate, StringFormat='Bảo trì cuối: {0:dd/MM/yyyy}'}" Margin="0,5"/>
+                            <TextBlock Text="{Binding SelectedMachine.MachineName, StringFormat='Machine Name: {0}'}" Margin="0,5"/>
+                            <TextBlock Text="{Binding SelectedMachine.MachineType, StringFormat='Machine Type: {0}'}" Margin="0,5"/>
+                            <TextBlock Text="{Binding SelectedMachine.Status, StringFormat='Status: {0}'}" Margin="0,5"/>
+                            <TextBlock Text="{Binding SelectedMachine.LastMaintenanceDate, StringFormat='Last Maintenance: {0:dd/MM/yyyy}'}" Margin="0,5"/>
                         </StackPanel>
                     </GroupBox>
 
                     <!-- Current Order -->
 
                     <!-- Maintenance History -->
-                    <GroupBox Header="Lịch sử bảo trì" Margin="0,0,0,20">
+                    <GroupBox Header="Maintenance History" Margin="0,0,0,20">
                         <StackPanel Margin="10">
-                            <TextBlock Text="Không có lịch sử bảo trì" 
+                            <TextBlock Text="No maintenance history" 
                                        Foreground="Gray" 
                                        TextWrapping="Wrap"
                                        Visibility="{Binding SelectedMachine.MaintenanceHistory.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
@@ -124,7 +124,7 @@
                                     <DataTemplate>
                                         <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
                                             <StackPanel>
-                                                <TextBlock Text="{Binding MaintenanceDate, StringFormat='Ngày: {0:dd/MM/yyyy}'}" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding MaintenanceDate, StringFormat='Date: {0:dd/MM/yyyy}'}" FontWeight="Bold"/>
                                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
                                                 <TextBlock Text="{Binding Technician}" TextWrapping="Wrap"/>                                        
                                             </StackPanel>
@@ -141,11 +141,7 @@
         <!-- Status Bar -->
         <StatusBar Grid.Row="3" Background="#F0F0F0">
             <StatusBarItem>
-                <TextBlock Text="{Binding Machines.Count, StringFormat='Tổng số máy: {0}'}"/>
-            </StatusBarItem>
-            <Separator/>
-            <StatusBarItem>
-                <TextBlock Text="{Binding IsLoading, StringFormat='Đang tải: {0}'}"/>
+                <TextBlock Text="{Binding Machines.Count, StringFormat='Total: {0} Machines'}"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

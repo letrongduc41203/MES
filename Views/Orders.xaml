@@ -191,44 +191,88 @@
             <DataGrid x:Name="OrdersDataGrid" 
                      Style="{StaticResource ModernDataGridStyle}"
                      IsReadOnly="True">
+
+            <DataGrid.Resources>
+                <!-- Style for all DataGrid cells -->
+                <Style TargetType="TextBlock" x:Key="CenteredCellStyle">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="5,3"/>
+                </Style>
+                
+                <!-- Apply centered style to all DataGrid cells -->
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" 
+                                                    HorizontalAlignment="Center"
+                                                    TextBlock.TextAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                
+                <!-- Center align DataGrid column headers -->
+                <Style x:Key="CenteredHeaderStyle" TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </DataGrid.Resources>
                 <DataGrid.Columns>
                     <!-- Order ID -->
                     <DataGridTextColumn Header="Order ID" 
                                        Binding="{Binding OrderId}" 
                                        Width="100"
-                                       HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                                       HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
 
                     <!-- Product ID -->
                     <DataGridTextColumn Header="Product ID" 
-                    Binding="{Binding ProductId}" 
-                    Width="100"
-                    HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                                       Binding="{Binding ProductId}" 
+                                       Width="100"
+                                       HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
 
                     <!-- Product -->
                     <DataGridTextColumn Header="Product" 
                                        Binding="{Binding ProductName}" 
-                                       Width="300"
-                                       HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                                       Width="250"
+                                       HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
 
                     <!-- Quantity -->
                     <DataGridTextColumn Header="Quantity" 
                                        Binding="{Binding Quantity}" 
                                        Width="100"
-                                       HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                                       HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
 
                     <DataGridTextColumn Header="Machine" 
                                        Binding="{Binding MachineName}" 
-                                       Width="300"
-                                       HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                                       Width="150"
+                                       HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
 
                     <!-- Assigned Employees -->
                     <DataGridTextColumn Header="Assign" 
                                        Binding="{Binding AssignedEmployees}" 
-                                       Width="250"
-                                       HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                                       Width="200"
+                                       HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
+
+                    <!-- Start Time -->
+                    <DataGridTextColumn Header="Start Time"
+                                        Binding="{Binding StartTime, StringFormat='dd/MM/yyyy HH:mm'}"
+                                        Width="150"
+                                        HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
+
+                    <!-- End Time -->
+                    <DataGridTextColumn Header="End Time"
+                                        Binding="{Binding EndTime, StringFormat='dd/MM/yyyy HH:mm'}"
+                                        Width="150"
+                                        HeaderStyle="{StaticResource CenteredHeaderStyle}"/>
 
                     <!-- Status -->
-                    <DataGridTemplateColumn Header="Status" Width="220" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                    <DataGridTemplateColumn Header="Status" Width="170" HeaderStyle="{StaticResource CenteredHeaderStyle}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Border CornerRadius="12" 
@@ -281,7 +325,7 @@
                 <Border Background="#3498db" CornerRadius="20" Padding="15,8" Margin="0,0,15,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="📋" FontSize="16" Margin="0,0,8,0"/>
-                        <TextBlock Text="Total: 156 Orders" 
+                        <TextBlock Text="{Binding TotalOrders, StringFormat='Total: {0} Orders'}" 
                                   Foreground="White" 
                                   FontWeight="SemiBold"/>
                     </StackPanel>
@@ -290,7 +334,7 @@
                 <Border Background="#27ae60" CornerRadius="20" Padding="15,8" Margin="0,0,15,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="✅" FontSize="16" Margin="0,0,8,0"/>
-                        <TextBlock Text="Completed: 89" 
+                        <TextBlock Text="{Binding CompletedOrders, StringFormat='Completed: {0}'}" 
                                   Foreground="White" 
                                   FontWeight="SemiBold"/>
                     </StackPanel>
@@ -299,40 +343,31 @@
                 <Border Background="#f39c12" CornerRadius="20" Padding="15,8" Margin="0,0,15,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="⏳" FontSize="16" Margin="0,0,8,0"/>
-                        <TextBlock Text="Pending: 45" 
+                        <TextBlock Text="{Binding PendingOrders, StringFormat='Pending: {0}'}" 
                                   Foreground="White" 
                                   FontWeight="SemiBold"/>
                     </StackPanel>
                 </Border>
 
-                <Border Background="#e74c3c" CornerRadius="20" Padding="15,8">
+                <Border Background="#3498db" CornerRadius="20" Padding="15,8" Margin="0,0,15,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="⚙️" FontSize="16" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding ProcessingOrders, StringFormat='Processing: {0}'}" 
+                                  Foreground="White" 
+                                  FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- <Border Background="#e74c3c" CornerRadius="20" Padding="15,8">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="⚠️" FontSize="16" Margin="0,0,8,0"/>
                         <TextBlock Text="Overdue: 12" 
                                   Foreground="White" 
                                   FontWeight="SemiBold"/>
                     </StackPanel>
-                </Border>
+                </Border> -->
             </StackPanel>
 
-            <!-- Pagination -->
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Button Content="⬅ Previous" 
-                       Style="{StaticResource ActionButtonStyle}"
-                       Background="#95a5a6" 
-                       Foreground="White"
-                       Margin="0,0,10,0"/>
-
-                <TextBlock Text="Page 1 of 8" 
-                          VerticalAlignment="Center" 
-                          Margin="10,0"/>
-
-                <Button Content="Next ➡" 
-                       Style="{StaticResource ActionButtonStyle}"
-                       Background="#95a5a6" 
-                       Foreground="White"
-                       Margin="10,0,0,0"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

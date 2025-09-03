@@ -9,8 +9,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MES.Services
 {
+
+    public class OrderStatusCount
+    {
+        public int Total { get; set; }
+        public int Pending { get; set; }
+        public int Processing { get; set; }
+        public int Completed { get; set; }
+    }
+
     public class OrderService
     {
+        public async Task<OrderStatusCount> GetOrderStatusCountsAsync()
+        {
+            var counts = await _context.Orders
+                .GroupBy(o => o.Status)
+                .Select(g => new { Status = g.Key, Count = g.Count() })
+                .ToListAsync();
+
+            return new OrderStatusCount
+            {
+                Total = await _context.Orders.CountAsync(),
+                Pending = counts.FirstOrDefault(x => x.Status == OrderStatus.Pending)?.Count ?? 0,
+                Processing = counts.FirstOrDefault(x => x.Status == OrderStatus.Processing)?.Count ?? 0,
+                Completed = counts.FirstOrDefault(x => x.Status == OrderStatus.Completed)?.Count ?? 0
+            };
+        }
         private readonly MyDbContext _context;
 
         public OrderService(MyDbContext context)
@@ -128,10 +152,19 @@ namespace MES.Services
             // Update status first, which handles machine status changes
             await UpdateOrderStatusAsync(orderId, OrderStatus.Completed);
 
-            var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            var order = await _context.Orders
+                .Include(o => o.OrderMachines)
+                .FirstOrDefaultAsync(o => o.OrderId == orderId);
             if (order == null)
             {
                 throw new InvalidOperationException($"Order {orderId} không tồn tại");
+            }
+
+            // Set EndTime for the machine assignment
+            var orderMachine = order.OrderMachines.FirstOrDefault(om => om.MachineId == order.MachineId);
+            if (orderMachine != null)
+            {
+                orderMachine.EndTime = DateTime.Now;
             }
 
             if (order.Status != OrderStatus.Completed)

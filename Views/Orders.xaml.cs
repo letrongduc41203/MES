@@ -6,14 +6,51 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using MES.Models;
 using MES.Services;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MES.Views
 {
     /// <summary>
     /// Interaction logic for Orders.xaml
     /// </summary>
-    public partial class Orders : UserControl
+    public partial class Orders : UserControl, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        private int _totalOrders;
+        private int _pendingOrders;
+        private int _processingOrders;
+        private int _completedOrders;
+
+        public int TotalOrders
+        {
+            get => _totalOrders;
+            set { _totalOrders = value; OnPropertyChanged(); }
+        }
+
+        public int PendingOrders
+        {
+            get => _pendingOrders;
+            set { _pendingOrders = value; OnPropertyChanged(); }
+        }
+
+        public int ProcessingOrders
+        {
+            get => _processingOrders;
+            set { _processingOrders = value; OnPropertyChanged(); }
+        }
+
+        public int CompletedOrders
+        {
+            get => _completedOrders;
+            set { _completedOrders = value; OnPropertyChanged(); }
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         private readonly IServiceProvider _serviceProvider;
 
         public Orders()
@@ -21,6 +58,7 @@ namespace MES.Views
             InitializeComponent();
             _serviceProvider = App.ServiceProvider;
             Loaded += Orders_Loaded;
+            DataContext = this;
         }
 
         private async void Orders_Loaded(object sender, RoutedEventArgs e)
@@ -34,12 +72,21 @@ namespace MES.Views
             {
                 using var scope = _serviceProvider.CreateScope();
                 var db = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+                var orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
+
+                // Load order counts
+                var counts = await orderService.GetOrderStatusCountsAsync();
+                TotalOrders = counts.Total;
+                PendingOrders = counts.Pending;
+                ProcessingOrders = counts.Processing;
+                CompletedOrders = counts.Completed;
 
                 var rows = await db.Orders
                     .Include(o => o.Product)
                     .Include(o => o.Machine)
                     .Include(o => o.OrderEmployees)
                         .ThenInclude(oe => oe.Employee)
+                    .Include(o => o.OrderMachines)
                     .Select(o => new OrderRow
                     {
                         OrderId = o.OrderId,
@@ -50,7 +97,9 @@ namespace MES.Views
                         MachineName = o.Machine != null ? o.Machine.MachineName : "Chưa gán máy",
                         AssignedEmployees = string.Join(", ", o.OrderEmployees
                             .Where(oe => oe.Employee != null)
-                            .Select(oe => oe.Employee.FullName))
+                            .Select(oe => oe.Employee.FullName)),
+                        StartTime = o.OrderMachines.Select(om => (DateTime?)om.StartTime).FirstOrDefault(),
+                        EndTime = o.OrderMachines.Select(om => om.EndTime).FirstOrDefault()
                     })
                     .OrderByDescending(r => r.OrderId)
                     .ToListAsync();
