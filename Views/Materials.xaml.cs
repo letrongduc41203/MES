@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace MES.Views
     
     public partial class Materials : UserControl
     {
-        public ObservableCollection<Material> MaterialList { get; set; }
+        public ObservableCollection<Material> MaterialList { get; set; } = new ObservableCollection<Material>();
         
         public Materials()
         {
@@ -26,7 +26,7 @@ namespace MES.Views
 
         private void LoadMaterials()
         {
-            MaterialList = new ObservableCollection<Material>();
+            MaterialList.Clear();
 
             string connectionString = "Server=DucFendi;Database=MES_ProductionDB;Trusted_Connection=True;TrustServerCertificate=True";
             string query = @"

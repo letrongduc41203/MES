@@ -1,4 +1,4 @@
-﻿using MES.Views;
+using MES.Views;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,17 +27,23 @@ namespace MES
 
         private void NavigateToView(Button selectedButton)
         {
-            // Reset all buttons to default style
-            var sidebarStack = ((Grid)this.Content).Children[0] as Border;
-            var grid = sidebarStack.Child as Grid;
-            var scrollViewer = ((Grid)grid).Children[1] as ScrollViewer;
-            var stackPanel = scrollViewer.Content as StackPanel;
-            
-            foreach (var child in stackPanel.Children)
+            // Reset all buttons to default style with null checks to avoid NRE
+            if (this.Content is not Grid rootGrid || rootGrid.Children.Count == 0)
+                return;
+
+            var sidebarBorder = rootGrid.Children[0] as Border;
+            var grid = sidebarBorder?.Child as Grid;
+            var scrollViewer = grid != null && grid.Children.Count > 1 ? grid.Children[1] as ScrollViewer : null;
+            var stackPanel = scrollViewer?.Content as StackPanel;
+
+            if (stackPanel != null)
             {
-                if (child is Button btn)
+                foreach (var child in stackPanel.Children)
                 {
-                    btn.Style = (Style)FindResource("MenuButtonStyle");
+                    if (child is Button btn)
+                    {
+                        btn.Style = (Style)FindResource("MenuButtonStyle");
+                    }
                 }
             }
 
@@ -45,41 +51,42 @@ namespace MES
             selectedButton.Style = (Style)FindResource("ActiveMenuButtonStyle");
 
             // Update page title and description
-            txtPageTitle.Text = selectedButton.Content?.ToString() ?? "Dashboard";
+            if (txtPageTitle != null)
+                txtPageTitle.Text = selectedButton.Content?.ToString() ?? "Dashboard";
             
             // Set appropriate description based on the page
             switch (selectedButton.Name)
             {
                 case "btnDashboard":
-                    txtPageDescription.Text = "Overview of PCB production activities";
+                    if (txtPageDescription != null) txtPageDescription.Text = "Overview of PCB production activities";
                     MainContentControl.Content = new Dashboard();
                     break;
                 case "btnOrders":
-                    txtPageDescription.Text = "Manage production orders";
+                    if (txtPageDescription != null) txtPageDescription.Text = "Manage production orders";
                     MainContentControl.Content = new Orders();
                     break;
                 case "btnMaterials":
-                    txtPageDescription.Text = "Manage materials and inventory";
+                    if (txtPageDescription != null) txtPageDescription.Text = "Manage materials and inventory";
                     MainContentControl.Content = new Materials();
                     break;
                 case "btnMachines":
-                    txtPageDescription.Text = "Manage machines and equipment";
+                    if (txtPageDescription != null) txtPageDescription.Text = "Manage machines and equipment";
                     MainContentControl.Content = new Machines();
                     break;
                 case "btnEmployees":
-                    txtPageDescription.Text = "Manage employee information";
+                    if (txtPageDescription != null) txtPageDescription.Text = "Manage employee information";
                     MainContentControl.Content = new Employees();
                     break;
                 case "btnReports":
-                    txtPageDescription.Text = "View and generate reports";
+                    if (txtPageDescription != null) txtPageDescription.Text = "View and generate reports";
                     MainContentControl.Content = new Reports();
                     break;
                 case "btnSettings":
-                    txtPageDescription.Text = "System configuration and settings";
+                    if (txtPageDescription != null) txtPageDescription.Text = "System configuration and settings";
                     MainContentControl.Content = new Settings();
                     break;
                 default:
-                    txtPageDescription.Text = "Overview of PCB production activities";
+                    if (txtPageDescription != null) txtPageDescription.Text = "Overview of PCB production activities";
                     MainContentControl.Content = new Dashboard();
                     break;
             }

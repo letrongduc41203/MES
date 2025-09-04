@@ -1,4 +1,4 @@
-﻿using MES.Services;
+using MES.Services;
 using MES.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -10,7 +10,7 @@ namespace MES.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        private string _username;
+        private string _username = string.Empty;
         public string Username
         {
             get => _username;
@@ -59,8 +59,8 @@ namespace MES.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

@@ -154,12 +154,12 @@
                             Employees (Nhân viên)
                         </Button>
                         
-                        <!-- <Button x:Name="btnReports" 
+                        <Button x:Name="btnReports" 
                                Style="{StaticResource MenuButtonStyle}" 
                                Tag="&#xE9F9;"
                                Click="MenuButton_Click">
                             Reports (Báo cáo)
-                        </Button> -->
+                        </Button>
                         
                         
                     </StackPanel>

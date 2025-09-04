@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\MES\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\orders.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\orders.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\dashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\dashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\orders.xaml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\orders.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\dashboard.xaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\dashboard.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\views\\orders.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|solutionrelative:views\\orders.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A314A3B6-D651-4CAF-AC12-B5639A3C3FA7}|MES.csproj|d:\\mes\\services\\machineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,11 +82,47 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\Login.xaml",
+              "RelativeDocumentMoniker": "Views\\Login.xaml",
+              "ToolTip": "D:\\MES\\Views\\Login.xaml",
+              "RelativeToolTip": "Views\\Login.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-04T18:17:25.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dashboard.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\Dashboard.xaml",
+              "RelativeDocumentMoniker": "Views\\Dashboard.xaml",
+              "ToolTip": "D:\\MES\\Views\\Dashboard.xaml",
+              "RelativeToolTip": "Views\\Dashboard.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-04T18:17:03.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\MES\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "D:\\MES\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-04T18:16:50.681Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Orders.xaml.cs",
               "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml.cs",
               "RelativeDocumentMoniker": "Views\\Orders.xaml.cs",
@@ -86,7 +134,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "MachinesViewModel.cs",
               "DocumentMoniker": "D:\\MES\\ViewModels\\MachinesViewModel.cs",
               "RelativeDocumentMoniker": "ViewModels\\MachinesViewModel.cs",
@@ -98,7 +146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Order.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Order.cs",
               "RelativeDocumentMoniker": "Models\\Order.cs",
@@ -110,7 +158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\MES\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -122,7 +170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "Product.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Product.cs",
               "RelativeDocumentMoniker": "Models\\Product.cs",
@@ -134,7 +182,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "MyDbContext.cs",
               "DocumentMoniker": "D:\\MES\\Data\\MyDbContext.cs",
               "RelativeDocumentMoniker": "Data\\MyDbContext.cs",
@@ -146,7 +194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "NewOrderWindow.xaml.cs",
               "DocumentMoniker": "D:\\MES\\Views\\NewOrderWindow.xaml.cs",
               "RelativeDocumentMoniker": "Views\\NewOrderWindow.xaml.cs",
@@ -158,7 +206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Machines.xaml",
               "DocumentMoniker": "D:\\MES\\Views\\Machines.xaml",
               "RelativeDocumentMoniker": "Views\\Machines.xaml",
@@ -169,7 +217,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Material.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Material.cs",
               "RelativeDocumentMoniker": "Models\\Material.cs",
@@ -181,7 +229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Orders.xaml",
               "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml",
               "RelativeDocumentMoniker": "Views\\Orders.xaml",
@@ -193,7 +241,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "MachineService.cs",
               "DocumentMoniker": "D:\\MES\\Services\\MachineService.cs",
               "RelativeDocumentMoniker": "Services\\MachineService.cs",
@@ -201,12 +249,11 @@
               "RelativeToolTip": "Services\\MachineService.cs",
               "ViewState": "AgIAAGgAAAAAAAAAAAAQwIYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-01T18:06:52.618Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-01T18:06:52.618Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "OrderService.cs",
               "DocumentMoniker": "D:\\MES\\Services\\OrderService.cs",
               "RelativeDocumentMoniker": "Services\\OrderService.cs",
@@ -218,7 +265,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Machine.cs",
               "DocumentMoniker": "D:\\MES\\Models\\Machine.cs",
               "RelativeDocumentMoniker": "Models\\Machine.cs",
@@ -230,7 +277,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "StatusToColorConverter.cs",
               "DocumentMoniker": "D:\\MES\\Helpers\\StatusToColorConverter.cs",
               "RelativeDocumentMoniker": "Helpers\\StatusToColorConverter.cs",
@@ -248,13 +295,13 @@
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "FloatingWindowState": {
-        "Id": "0b55a686-c3b3-40b2-a839-a4b5828d1ef0",
+        "Id": "fb416581-45df-4ef7-9923-fbbc9894ef64",
         "Display": 0,
         "X": 0,
         "Y": 65,
         "Width": 800,
         "Height": 600,
-        "WindowState": 2
+        "WindowState": 0
       },
       "DocumentGroups": [
         {
@@ -264,14 +311,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Orders.xaml",
-              "DocumentMoniker": "D:\\MES\\Views\\Orders.xaml",
-              "RelativeDocumentMoniker": "Views\\Orders.xaml",
-              "ToolTip": "D:\\MES\\Views\\Orders.xaml",
-              "RelativeToolTip": "Views\\Orders.xaml",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAUwOsAAAAwAAAAAAAAAA==",
+              "Title": "Dashboard.xaml",
+              "DocumentMoniker": "D:\\MES\\Views\\Dashboard.xaml",
+              "RelativeDocumentMoniker": "Views\\Dashboard.xaml",
+              "ToolTip": "D:\\MES\\Views\\Dashboard.xaml",
+              "RelativeToolTip": "Views\\Dashboard.xaml",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAUwIsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-03T16:34:01.999Z",
+              "WhenOpened": "2025-09-04T18:17:06.2Z",
               "EditorCaption": ""
             }
           ]
