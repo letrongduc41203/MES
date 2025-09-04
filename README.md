@@ -26,7 +26,7 @@ A comprehensive Manufacturing Execution System (MES) built with WPF and .NET 9.0
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/MES.git
+   git clone https://github.com/letrongduc41203/MES.git
    cd MES
    ```
 
@@ -37,7 +37,7 @@ A comprehensive Manufacturing Execution System (MES) built with WPF and .NET 9.0
 
 3. Update the connection string in `appsettings.json` to point to your SQL Server instance.
 
-4. Run database migrations (if applicable):
+4. Run database migrations:
    ```bash
    dotnet ef database update
    ```
